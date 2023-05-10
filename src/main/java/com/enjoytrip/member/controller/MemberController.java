@@ -23,6 +23,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -34,6 +42,7 @@ public class MemberController {
 
     private MemberService service;
     private MemberMapper mapper;
+
 
     @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post postRequest) {
@@ -79,5 +88,12 @@ public class MemberController {
         service.deleteOneMember(memberId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post post) {
+        Member serviceMember = mapper.memberPostToMember(post);
+        Member responseMember = service.createMember(serviceMember);
+        MemberDto.Response response = mapper.memberToMemberResponse(responseMember);
+
+        return new ResponseEntity(response, HttpStatus.CREATED);
     }
 }
