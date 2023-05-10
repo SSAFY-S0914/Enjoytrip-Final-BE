@@ -88,12 +88,5 @@ public class MemberController {
         service.deleteOneMember(memberId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
-
-    public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post post) {
-        Member serviceMember = mapper.memberPostToMember(post);
-        Member responseMember = service.createMember(serviceMember);
-        MemberDto.Response response = mapper.memberToMemberResponse(responseMember);
-
-        return new ResponseEntity(response, HttpStatus.CREATED);
     }
 }
