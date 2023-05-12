@@ -3,7 +3,7 @@
 
 ### yml ###
 **/application-*.yml
-
+!**/application.yml
 
 ### Eclipse ###
 .metadata
