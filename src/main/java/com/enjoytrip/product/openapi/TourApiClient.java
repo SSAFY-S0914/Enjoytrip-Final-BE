@@ -1,6 +1,6 @@
 package com.enjoytrip.product.openapi;
 
-import com.enjoytrip.product.dto.RespBodyDto;
+import com.enjoytrip.product.dto.ResponseBodyDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
@@ -30,9 +30,7 @@ public class TourApiClient {
         API_KEY = apiKey;
     }
 
-    public RespBodyDto requestTourApi(Map<String, String> params) {
-
-        System.out.println("API_KEY = " + API_KEY);
+    public ResponseBodyDto requestTourApi(Map<String, String> params) {
 
         String requestUri = "/areaBasedSyncList1";
 

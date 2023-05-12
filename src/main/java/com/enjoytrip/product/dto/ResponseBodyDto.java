@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class RespBodyDto {
+public class ResponseBodyDto {
 
     private Items items;
     private Integer numOfRows;

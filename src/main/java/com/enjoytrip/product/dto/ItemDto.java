@@ -64,6 +64,5 @@ public class ItemDto {
     private Long zipCode;
 
     private String showflag;
-
-
+    
 }

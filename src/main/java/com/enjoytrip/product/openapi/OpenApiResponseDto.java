@@ -1,6 +1,6 @@
 package com.enjoytrip.product.openapi;
 
-import com.enjoytrip.product.dto.RespBodyDto;
+import com.enjoytrip.product.dto.ResponseBodyDto;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +18,7 @@ public class OpenApiResponseDto {
 class OpenApiResponse {
 
     private OpenApiHeader header;
-    private RespBodyDto body;
+    private ResponseBodyDto body;
 
 }
 
