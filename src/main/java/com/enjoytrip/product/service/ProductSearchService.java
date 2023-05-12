@@ -1,25 +1,68 @@
 package com.enjoytrip.product.service;
 
-import com.enjoytrip.product.dto.ItemDto;
+import com.enjoytrip.product.dto.ResponseBodyDto;
+import com.enjoytrip.product.openapi.TourApiClient;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
 public class ProductSearchService {
-    public List<ItemDto> searchLocation(Map<String, String> queryParams) {
+
+    private final TourApiClient apiClient;
+    private List<String> requiredParams;
+
+    public ResponseBodyDto searchLocation(Map<String, String> queryParams) {
+
+        requiredParams = new ArrayList<>();
+        requiredParams.add("mapX");
+        requiredParams.add("mapY");
+        requiredParams.add("radius");
+
+        checkRequiredParams(requiredParams, queryParams);
+
+        return apiClient.searchLocation(queryParams);
     }
 
-    public List<ItemDto> searchKeyword(Map<String, String> queryParams) {
+    public ResponseBodyDto searchKeyword(Map<String, String> queryParams) {
+
+        requiredParams = new ArrayList<>();
+        requiredParams.add("keyword");
+
+        checkRequiredParams(requiredParams, queryParams);
+
+        return apiClient.searchKeyword(queryParams);
     }
 
-    public List<ItemDto> searchFestival(Map<String, String> queryParams) {
+    public ResponseBodyDto searchFestival(Map<String, String> queryParams) {
+
+        requiredParams = new ArrayList<>();
+        requiredParams.add("eventStartDate");
+
+        checkRequiredParams(requiredParams, queryParams);
+
+        return apiClient.searchFestival(queryParams);
     }
 
-    public List<ItemDto> searchStay(Map<String, String> queryParams) {
+    public ResponseBodyDto searchStay(Map<String, String> queryParams) {
+
+        return apiClient.searchStay(queryParams);
     }
 
-    public List<ItemDto> searchArea(Map<String, String> queryParams) {
+    public ResponseBodyDto searchArea(Map<String, String> queryParams) {
+
+        return apiClient.searchArea(queryParams);
+    }
+
+    private static void checkRequiredParams(List<String> requiredParams, Map<String, String> param) {
+        for (String requiredParam : requiredParams) {
+            if (!param.containsKey(requiredParam)) {
+                throw new NoRequiredParamException();
+            }
+        }
     }
 }

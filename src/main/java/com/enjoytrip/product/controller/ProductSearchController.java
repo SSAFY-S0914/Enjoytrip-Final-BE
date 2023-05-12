@@ -1,6 +1,6 @@
 package com.enjoytrip.product.controller;
 
-import com.enjoytrip.product.dto.ItemDto;
+import com.enjoytrip.product.dto.ResponseBodyDto;
 import com.enjoytrip.product.service.ProductSearchService;
 import com.enjoytrip.utils.dtoUtils.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -23,31 +22,31 @@ public class ProductSearchController {
 
     @GetMapping("/location")
     public ResponseEntity searchLocation(@RequestParam Map<String, String> queryParams) {
-        List<ItemDto> results = productSearchService.searchLocation(queryParams);
+        ResponseBodyDto results = productSearchService.searchLocation(queryParams);
         return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
     }
 
     @GetMapping("/keyword")
     public ResponseEntity searchKeyword(@RequestParam Map<String, String> queryParams) {
-        List<ItemDto> results = productSearchService.searchKeyword(queryParams);
+        ResponseBodyDto results = productSearchService.searchKeyword(queryParams);
         return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
     }
 
     @GetMapping("/festival")
     public ResponseEntity searchFestival(@RequestParam Map<String, String> queryParams) {
-        List<ItemDto> results = productSearchService.searchFestival(queryParams);
+        ResponseBodyDto results = productSearchService.searchFestival(queryParams);
         return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
     }
 
     @GetMapping("/stay")
     public ResponseEntity searchStay(@RequestParam Map<String, String> queryParams) {
-        List<ItemDto> results = productSearchService.searchStay(queryParams);
+        ResponseBodyDto results = productSearchService.searchStay(queryParams);
         return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
     }
 
     @GetMapping("/area")
     public ResponseEntity searchArea(@RequestParam Map<String, String> queryParams) {
-        List<ItemDto> results = productSearchService.searchArea(queryParams);
+        ResponseBodyDto results = productSearchService.searchArea(queryParams);
         return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
     }
 

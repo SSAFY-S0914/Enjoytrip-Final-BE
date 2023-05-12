@@ -30,17 +30,54 @@ public class TourApiClient {
         API_KEY = apiKey;
     }
 
-    public ResponseBodyDto requestTourApi(Map<String, String> params) {
 
-        String requestUri = "/areaBasedSyncList1";
+    public ResponseBodyDto searchLocation(Map<String, String> queryParams) {
 
-        URI uri = createUri(requestUri, params);
+        String requestUri = "/localcationBaseList1";
 
-        return restTemplate.exchange(
-                uri,
-                HttpMethod.GET,
-                null,
-                OpenApiResponseDto.class).getBody().getResponse().getBody();
+        URI uri = createUri(requestUri, queryParams);
+
+        return requestOpenApi(uri);
+    }
+
+    public ResponseBodyDto searchKeyword(Map<String, String> queryParams) {
+
+        String requestUri = "/searchKeyword1";
+
+        URI uri = createUri(requestUri, queryParams);
+
+        return requestOpenApi(uri);
+
+    }
+
+    public ResponseBodyDto searchFestival(Map<String, String> queryParams) {
+
+        String requestUri = "/searchFestival1";
+
+        URI uri = createUri(requestUri, queryParams);
+
+        return requestOpenApi(uri);
+
+    }
+
+    public ResponseBodyDto searchStay(Map<String, String> queryParams) {
+
+        String requestUri = "/searchStay1";
+
+        URI uri = createUri(requestUri, queryParams);
+
+        return requestOpenApi(uri);
+
+    }
+
+
+    public ResponseBodyDto searchArea(Map<String, String> queryParams) {
+
+        String requestUri = "/areaBasedList1";
+
+        URI uri = createUri(requestUri, queryParams);
+
+        return requestOpenApi(uri);
 
     }
 
@@ -59,5 +96,11 @@ public class TourApiClient {
 
     }
 
-
+    private ResponseBodyDto requestOpenApi(URI uri) {
+        return restTemplate.exchange(
+                uri,
+                HttpMethod.GET,
+                null,
+                OpenApiResponseDto.class).getBody().getResponse().getBody();
+    }
 }
