@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class OpenApiResponseDto {
+public class OpenApiResponseWrapper {
 
     private OpenApiResponse response;
 

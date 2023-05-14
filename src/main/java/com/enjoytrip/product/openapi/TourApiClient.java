@@ -7,6 +7,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.yaml.snakeyaml.util.UriEncoder;
 
 import java.net.URI;
 import java.util.Map;
@@ -89,7 +90,7 @@ public class TourApiClient {
                 .queryParam("serviceKey", API_KEY);
 
         for (Map.Entry<String, String> entry : params.entrySet()) {
-            builder.queryParam(entry.getKey(), entry.getValue());
+            builder.queryParam(entry.getKey(), UriEncoder.encode(entry.getValue()));
         }
 
         return builder.build(true).toUri();
@@ -101,6 +102,6 @@ public class TourApiClient {
                 uri,
                 HttpMethod.GET,
                 null,
-                OpenApiResponseDto.class).getBody().getResponse().getBody();
+                OpenApiResponseWrapper.class).getBody().getResponse().getBody();
     }
 }
