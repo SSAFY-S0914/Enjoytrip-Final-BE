@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,macos,intellij+all,eclipse,gradle,java,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,macos,intellij+all,eclipse,gradle,java,visualstudiocode
 
+### yml ###
+**/application-*.yml
+!**/application.yml
+
 ### Eclipse ###
 .metadata
 bin/
