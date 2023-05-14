@@ -1,9 +1,5 @@
 package com.enjoytrip.member.entity;
 
-import com.enjoytrip.follow.entity.Follow;
-import com.enjoytrip.group.entity.Group;
-import com.enjoytrip.like.entity.Like;
-import com.enjoytrip.product.entity.Product;
 import com.enjoytrip.utils.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,10 +8,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,17 +50,17 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE; //회원 가입 시, 기본값으로 "활성 계정"의 값을 지정.
 
-    @OneToMany(mappedBy = "member")
-    private List<Product> products = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Product> products = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<Follow> follows = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Follow> follows = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<Group> groups = new ArrayList<>();
-
-    @OneToMany(mappedBy = "member")
-    private List<Like> likes = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Group> groups = new ArrayList<>();
+//
+//    @OneToMany(mappedBy = "member")
+//    private List<Like> likes = new ArrayList<>();
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활성 계정"),
