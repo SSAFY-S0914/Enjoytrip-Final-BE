@@ -1,4 +1,4 @@
-package com.enjoytrip.product.mapper;
-
-public class ProductMapper {
-}
+//package com.enjoytrip.product.mapper;
+//
+//public class ProductMapper {
+//}
