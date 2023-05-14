@@ -1,68 +1,73 @@
 package com.enjoytrip.product.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.util.Date;
 
-@Getter
-@Setter
-public class ItemDto {
+@Data
+public class ProductDto {
 
-    private String addr1;
-
-    private String addr2;
-
-    @JsonProperty("areacode")
-    private Long areaCode;
-
-    private String booktour;
-
-    private String cat1;
-
-    private String cat2;
-
-    private String cat3;
-
+    /* 공통 정보 (키워드 기반, 지역 기반) */
     @JsonProperty("contentid")
     private Long contentId;
-
     @JsonProperty("contenttypeid")
+
     private Long contentTypeId;
-
-    @JsonProperty("createdtime")
-    private Date createdTime;
-
-    @JsonProperty("firstimage")
-    private String image;
-
-    @JsonProperty("firstimage2")
-    private String image2;
-
-    private String cpyrhtDivCd;
-
-    @JsonProperty("mapx")
-    private String mapX;
-
-    @JsonProperty("mapy")
-    private String mapY;
-
-    private String mlevel;
-
-    @JsonProperty("modifiedtime")
-    private Date modifiedTime;
-
+    private String title;
+    private String addr1;
+    private String addr2;
+    @JsonProperty("areacode")
+    private Long areaCode;
     @JsonProperty("sigungucode")
     private Long sigunguCode;
-
+    @JsonProperty("createdtime")
+    private Date createdTime;
+    @JsonProperty("modifiedtime")
+    private Date modifiedTime;
+    @JsonProperty("firstimage")
+    private String image;
+    @JsonProperty("firstimage2")
+    private String image2;
+    private String cpyrhtDivCd;
+    @JsonProperty("mapx")
+    private String mapX;
+    @JsonProperty("mapy")
+    private String mapY;
+    private String mlevel;
     private String tel;
+    private String booktour;
+    private String cat1;
+    private String cat2;
+    private String cat3;
+    private String zipcode; //지역 기반, 상세 정보 조회
 
-    private String title;
+    /* 위치 기반 조회 */
+    private String dist;
+    /* 위치 기반 조회 끝 */
 
-    @JsonProperty("zipcode")
-    private Long zipCode;
+    /* 키워드 기반 조회 */
+    /* 키워드 기반 조회 끝 */
 
-    private String showflag;
-    
+    /* 행사 정보 조회  */
+    @JsonProperty("eventstartdate")
+    private Date eventStartDate;
+    @JsonProperty("eventenddate")
+    private Date eventEndDate;
+    /* 행사 정보 조회 끝 */
+
+    /* 숙박 정보 조회 */
+    private String benikia;
+    private String goodstay;
+    private String hanok;
+    /* 숙박 정보 조회 끝 */
+
+    /* 지역기반 관광정보 조회 */
+    /* 지역기반 관광정보 끝 */
+
+    /* 상세 정보 조회 */
+    private String telname;
+    private String homepage;
+    private String overview;
+    /* 상세 정보 조회 끝 */
 }
