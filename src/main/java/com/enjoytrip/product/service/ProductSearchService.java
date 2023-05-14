@@ -53,6 +53,25 @@ public class ProductSearchService {
         return apiClient.searchStay(queryParams);
     }
 
+    public ResponseBodyDto searchDetail(Map<String, String> queryParams) {
+
+        requiredParams = new ArrayList<>();
+        requiredParams.add("contentId");
+        requiredParams.add("contentTypeId");
+
+        checkRequiredParams(requiredParams, queryParams);
+
+        queryParams.put("defaultYN", "Y");
+        queryParams.put("firstImageYN", "Y");
+        queryParams.put("areacodeYN", "Y");
+        queryParams.put("catcodeYN", "Y");
+        queryParams.put("addrinfoYN", "Y");
+        queryParams.put("mapinfoYN", "Y");
+        queryParams.put("overviewYN", "Y");
+
+        return apiClient.searchDetail(queryParams);
+    }
+
     public ResponseBodyDto searchArea(Map<String, String> queryParams) {
 
         return apiClient.searchArea(queryParams);

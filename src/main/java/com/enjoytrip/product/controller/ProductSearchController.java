@@ -44,6 +44,12 @@ public class ProductSearchController {
         return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
     }
 
+    @GetMapping("/detail")
+    public ResponseEntity searchDetail(@RequestParam Map<String, String> queryParams) {
+        ResponseBodyDto results = productSearchService.searchDetail(queryParams);
+        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+    }
+
     @GetMapping("/area")
     public ResponseEntity searchArea(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchArea(queryParams);

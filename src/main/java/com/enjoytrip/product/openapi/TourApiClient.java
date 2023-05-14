@@ -34,7 +34,7 @@ public class TourApiClient {
 
     public ResponseBodyDto searchLocation(Map<String, String> queryParams) {
 
-        String requestUri = "/localcationBaseList1";
+        String requestUri = "/locationBasedList1";
 
         URI uri = createUri(requestUri, queryParams);
 
@@ -69,6 +69,15 @@ public class TourApiClient {
 
         return requestOpenApi(uri);
 
+    }
+
+    public ResponseBodyDto searchDetail(Map<String, String> queryParams) {
+
+        String requestUri = "/detailCommon1";
+
+        URI uri = createUri(requestUri, queryParams);
+
+        return requestOpenApi(uri);
     }
 
 
