@@ -1,8 +1,10 @@
 package com.enjoytrip.utils.dtoUtils;
 
 import java.util.List;
+import lombok.Getter;
 import org.springframework.data.domain.Page;
 
+@Getter
 public class MultiResponseDto<T> {
 
     //TODO Data List 필드
