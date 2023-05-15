@@ -3,7 +3,6 @@ package com.enjoytrip.post.dto;
 import com.enjoytrip.post.entity.PostScope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.mapstruct.Mapping;
 
 public class PostDto {
 
@@ -15,10 +14,8 @@ public class PostDto {
         private String title;
         private String content;
         private String createdAt;
-        private String updatedAt;
+        private String modifiedAt;
     }
-
-
 
     @AllArgsConstructor
     @Getter
