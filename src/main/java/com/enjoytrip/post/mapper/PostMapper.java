@@ -10,6 +10,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
+    @Mapping(target = "id", ignore = true)
     Post postRequestToPost(PostDto.Post postRequest);
 
     Post patchRequestToPost(PostDto.Patch patchRequest);
