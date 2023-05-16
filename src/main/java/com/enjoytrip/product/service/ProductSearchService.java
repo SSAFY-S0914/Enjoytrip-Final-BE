@@ -80,7 +80,7 @@ public class ProductSearchService {
     private static void checkRequiredParams(List<String> requiredParams, Map<String, String> param) {
         for (String requiredParam : requiredParams) {
             if (!param.containsKey(requiredParam)) {
-                throw new NoRequiredParamException();
+//                throw new NoRequiredParamException();
             }
         }
     }

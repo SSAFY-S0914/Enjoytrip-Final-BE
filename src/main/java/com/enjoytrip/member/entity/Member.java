@@ -2,8 +2,9 @@ package com.enjoytrip.member.entity;
 
 import com.enjoytrip.follow.entity.Follow;
 import com.enjoytrip.group.entity.Group;
+import com.enjoytrip.group.entity.GroupMember;
 import com.enjoytrip.like.entity.Like;
-import com.enjoytrip.product.entity.Product;
+//import com.enjoytrip.product.entity.Product;
 import com.enjoytrip.utils.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -57,14 +58,14 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private MemberStatus memberStatus = MemberStatus.MEMBER_ACTIVE; //회원 가입 시, 기본값으로 "활성 계정"의 값을 지정.
 
-    @OneToMany(mappedBy = "member")
-    private List<Product> products = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<Product> products = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Follow> follows = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
-    private List<Group> groups = new ArrayList<>();
+    private List<GroupMember> groupMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Like> likes = new ArrayList<>();

@@ -1,4 +1,4 @@
 package com.enjoytrip.follow.mapper;
 
-public class FollowMapper {
+public interface FollowMapper {
 }

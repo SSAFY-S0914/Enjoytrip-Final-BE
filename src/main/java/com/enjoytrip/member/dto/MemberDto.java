@@ -62,7 +62,7 @@ public class MemberDto {
     @Getter
     public static class Response {
 
-        private Long memberId;
+        private Long id;
         private String name;
         private String password;
         private String email;
