@@ -24,9 +24,11 @@ public class ProductSearchService {
         requiredParams.add("radius");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchLocation(queryParams);
     }
+
 
     public ResponseBodyDto searchKeyword(Map<String, String> queryParams) {
 
@@ -34,6 +36,7 @@ public class ProductSearchService {
         requiredParams.add("keyword");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchKeyword(queryParams);
     }
@@ -44,11 +47,15 @@ public class ProductSearchService {
         requiredParams.add("eventStartDate");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchFestival(queryParams);
     }
 
     public ResponseBodyDto searchStay(Map<String, String> queryParams) {
+
+        setDefaultNumOfRows(queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchStay(queryParams);
     }
@@ -60,6 +67,7 @@ public class ProductSearchService {
         requiredParams.add("contentTypeId");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         queryParams.put("defaultYN", "Y");
         queryParams.put("firstImageYN", "Y");
@@ -74,6 +82,8 @@ public class ProductSearchService {
 
     public ResponseBodyDto searchArea(Map<String, String> queryParams) {
 
+        setDefaultNumOfRows(queryParams);
+
         return apiClient.searchArea(queryParams);
     }
 
@@ -82,6 +92,12 @@ public class ProductSearchService {
             if (!param.containsKey(requiredParam)) {
                 throw new NoRequiredParamException();
             }
+        }
+    }
+
+    private static void setDefaultNumOfRows(Map<String, String> queryParams) {
+        if (!queryParams.containsKey("numOfRows")) {
+            queryParams.put("numOfRows", "40");
         }
     }
 }
