@@ -1,4 +1,4 @@
-//package com.enjoytrip.product.entity;
-//
-//public class Product {
-//}
+package com.enjoytrip.product.entity;
+
+public class Product {
+}
