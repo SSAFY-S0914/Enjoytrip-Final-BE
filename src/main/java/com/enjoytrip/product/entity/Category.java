@@ -11,12 +11,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ContentType {
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "content_type_id")
-    private Long contentTypeId;
+    @Column(name = "category_id")
+    private Long categoryId;
 
     private String name;
 }
