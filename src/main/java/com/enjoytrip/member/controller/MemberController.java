@@ -40,8 +40,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService service;
-    private MemberMapper mapper;
+    private final MemberService service;
+    private final MemberMapper mapper;
 
 
     @PostMapping

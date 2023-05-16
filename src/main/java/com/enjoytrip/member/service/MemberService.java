@@ -2,6 +2,8 @@ package com.enjoytrip.member.service;
 
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.repository.MemberRepository;
+import com.enjoytrip.utils.businessLogicException.BusinessLogicException;
+import com.enjoytrip.utils.businessLogicException.ExceptionCode;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -29,19 +31,19 @@ public class MemberService {
 
         // Optional.ofNullable() : 인자로 준 값이 null 이 아니면 인자값을 그대로 반환하고, null 이면 new Optional<>(==빈 값) 반환
         // Optional.ifPresent() : 값이 주어지면 작동, 없으면 무시
-        Optional.ofNullable(findMember.getName())
+        Optional.ofNullable(member.getName())
                 .ifPresent(name -> findMember.setName(name));
-        Optional.ofNullable(findMember.getPassword())
+        Optional.ofNullable(member.getPassword())
                 .ifPresent(password -> findMember.setPassword(password));
-        Optional.ofNullable(findMember.getEmail())
+        Optional.ofNullable(member.getEmail())
                 .ifPresent(email -> findMember.setEmail(email));
-        Optional.ofNullable(findMember.getNickname())
+        Optional.ofNullable(member.getNickname())
                 .ifPresent(nickName -> findMember.setNickname(nickName));
-        Optional.ofNullable(findMember.getPhoneNum())
+        Optional.ofNullable(member.getPhoneNum())
                 .ifPresent(phoneNum -> findMember.setPhoneNum(phoneNum));
-        Optional.ofNullable(findMember.getBirth())
+        Optional.ofNullable(member.getBirth())
                 .ifPresent(birth -> findMember.setBirth(birth));
-        Optional.ofNullable(findMember.getProfileImage())
+        Optional.ofNullable(member.getProfileImage())
                 .ifPresent(profileImage -> findMember.setProfileImage(profileImage));
 
         return repository.save(findMember);
@@ -53,7 +55,7 @@ public class MemberService {
 
     public Page<Member> findAllMembers(int page, int size) {
         Page<Member> pageMembers = repository.findAll(
-                PageRequest.of(page, size, Sort.by("memberId").descending()));
+                PageRequest.of(page, size, Sort.by("id").descending()));
         //repository.findAll() : Pageable 을 매개변수로 함.
         //PageRequest.of() : page, size, sort 를 같이 묶기 위한 Pageable 구현체
         //Sort.by() : 인자로 제공하는 문자열은 DB 와 매핑된 필드명이어야함. 즉, DB 에서 찾을 수 있어야 사용가능.

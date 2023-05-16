@@ -1,4 +1,4 @@
 package com.enjoytrip.like.mapper;
 
-public class LikeMapper {
+public interface LikeMapper {
 }
