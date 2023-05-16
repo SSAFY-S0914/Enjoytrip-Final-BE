@@ -1,4 +1,4 @@
-package com.enjoytrip.post.entity;
+package com.enjoytrip.group.entity;
 
 import com.enjoytrip.course.entity.Course;
 import com.enjoytrip.member.entity.Member;
@@ -14,25 +14,20 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Post extends BaseEntity {
+public class GroupMember extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id")
+    @Column(name = "group_member_id")
     private Long id;
 
-    private String title;
-
-    private String content;
-
-    @Enumerated(EnumType.STRING)
-    private PostScope scope;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writer_id")
-    private Member writer;
+    private Boolean isManager;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Course group;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 }
