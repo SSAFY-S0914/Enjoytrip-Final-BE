@@ -2,3 +2,25 @@ spring:
   profiles:
     include: openapi
     active: local
+  datasource:
+    url: jdbc:h2:mem:test
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      data-locations: classpath*:db/h2/data.sql
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            // id, password 추가
+  thymeleaf:
+    prefix: classpath:templates/
+    suffix: .html
+    cache: false
