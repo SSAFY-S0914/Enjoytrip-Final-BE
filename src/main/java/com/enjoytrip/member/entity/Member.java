@@ -2,7 +2,7 @@ package com.enjoytrip.member.entity;
 
 import com.enjoytrip.follow.entity.Follow;
 import com.enjoytrip.group.entity.Group;
-import com.enjoytrip.group.entity.GroupMember;
+//import com.enjoytrip.group.entity.GroupMember;
 import com.enjoytrip.like.entity.Like;
 //import com.enjoytrip.product.entity.Product;
 import com.enjoytrip.utils.BaseEntity;
@@ -64,8 +64,8 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Follow> follows = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
-    private List<GroupMember> groupMembers = new ArrayList<>();
+//    @OneToMany(mappedBy = "member")
+//    private List<GroupMember> groupMembers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member")
     private List<Like> likes = new ArrayList<>();
