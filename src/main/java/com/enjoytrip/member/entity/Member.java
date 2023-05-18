@@ -1,26 +1,18 @@
 package com.enjoytrip.member.entity;
 
 import com.enjoytrip.follow.entity.Follow;
-import com.enjoytrip.group.entity.Group;
 import com.enjoytrip.group.entity.GroupMember;
 import com.enjoytrip.like.entity.Like;
-//import com.enjoytrip.product.entity.Product;
 import com.enjoytrip.utils.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
