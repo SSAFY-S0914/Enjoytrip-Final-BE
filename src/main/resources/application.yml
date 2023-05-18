@@ -19,8 +19,17 @@ spring:
       client:
         registration:
           google:
-            // id, password 추가
+            clientId: 1007347382985-1lmb37b6id48gvas10hqgkrduqmo5v4f.apps.googleusercontent.com
+            clientSecret: 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
+            scope: # Resource Owner 의 이메일 정보, 프로필 정보만 사용
+              - email
+              - profile
   thymeleaf:
     prefix: classpath:templates/
     suffix: .html
     cache: false
+  jwt:
+    ket:
+      secret: password123
+    access-token-expiration-minutes: 10
+    refresh-token-expiration-minutes: 60

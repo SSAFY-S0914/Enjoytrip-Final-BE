@@ -69,6 +69,11 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "member")
     private List<Like> likes = new ArrayList<>();
+    
+    //로그인 인증에 사용
+    public Member(String email) {
+        this.email = email;
+    }
 
     public enum MemberStatus {
         MEMBER_ACTIVE("활성 계정"),
