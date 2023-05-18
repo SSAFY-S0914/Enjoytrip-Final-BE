@@ -17,7 +17,6 @@ public class PostDto {
         private String modifiedAt;
     }
 
-
     @AllArgsConstructor
     @Getter
     public static class Post {
