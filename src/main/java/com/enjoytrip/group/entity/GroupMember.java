@@ -23,7 +23,7 @@ public class GroupMember extends BaseEntity {
     private Boolean isManager;
 
     @Enumerated(EnumType.STRING)
-    private RequestStatus status;
+    private RequestStatus status = RequestStatus.REQUESTED;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
@@ -32,4 +32,16 @@ public class GroupMember extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    public static GroupMember createGroupMember(Group group, Member member, Boolean isManager) {
+        GroupMember groupMember = new GroupMember();
+        groupMember.setGroup(group);
+        groupMember.setMember(member);
+        groupMember.setIsManager(isManager);
+
+        group.addGroupMember(groupMember);
+        member.getGroupMembers().add(groupMember);
+
+        return groupMember;
+    }
 }

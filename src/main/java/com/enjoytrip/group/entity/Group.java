@@ -26,6 +26,23 @@ public class Group extends BaseEntity {
 
     private String description;
 
-    @OneToMany(mappedBy = "group")
+    @OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
     List<GroupMember> groupMemberList = new ArrayList<>();
+
+    public void addGroupMember(GroupMember groupMember) {
+        this.groupMemberList.add(groupMember);
+    }
+
+    public GroupMember getGroupMember(Long memberId) {
+        for (GroupMember groupMember : groupMemberList) {
+            if (groupMember.getMember().getId().equals(memberId)) {
+                return groupMember;
+            }
+        }
+        return null;
+    }
+
+    public void deleteGroupMember(GroupMember groupMember) {
+        this.groupMemberList.remove(groupMember);
+    }
 }
