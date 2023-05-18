@@ -43,20 +43,20 @@ public class SecurityConfiguration {
                 .and()
                 .csrf().disable()
                 .cors(withDefaults())
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)// 세션 정책 : 세션을 생성하지 않도록 설정 => JWT 사용 환경에선 세션을 사용하지 않음
                 .and()
                 .formLogin().disable()
                 .httpBasic().disable()
-                .exceptionHandling() // 추가
-                .authenticationEntryPoint(new MemberAuthenticationEntryPoint()) // 추가
-                .accessDeniedHandler(new MemberAccessDeniedHandler()) // 추가
-                .and()
+//                .exceptionHandling() // 추가
+//                .authenticationEntryPoint(new MemberAuthenticationEntryPoint()) // 추가
+//                .accessDeniedHandler(new MemberAccessDeniedHandler()) // 추가
+//                .and()
                 .apply(new CustomFilterConfigurer()) // 추가
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                        .antMatchers(HttpMethod.PATCH, "/*/coffees/**").hasRole("ADMIN")
-                        .antMatchers(HttpMethod.GET, "/*/coffees/**").hasAnyRole("USER", "ADMIN")
-                        .antMatchers(HttpMethod.GET, "/*/coffees").permitAll()
+                        .requestMatchers(HttpMethod.PATCH, "/*/coffees/**").hasRole("ADMIN") // SpringBoot 3 : antMatchers => requestMatchers
+                        .requestMatchers(HttpMethod.GET, "/*/coffees/**").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/*/coffees").permitAll()
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
@@ -89,4 +89,5 @@ public class SecurityConfiguration {
             JwtVerificationFilter jwtVerificationFilter = new JwtVerificationFilter(jwtTokenizer, authorityUtils);
             builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); // (2)
         }
+    }
 }

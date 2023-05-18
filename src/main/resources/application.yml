@@ -28,8 +28,8 @@ spring:
     prefix: classpath:templates/
     suffix: .html
     cache: false
-  jwt:
-    ket:
-      secret: password123
-    access-token-expiration-minutes: 10
-    refresh-token-expiration-minutes: 60
+jwt:
+  key:
+    secret: "password123"
+  access-token-expiration-minutes: 10
+  refresh-token-expiration-minutes: 60
