@@ -22,6 +22,8 @@ public class GroupDto {
     @Getter
     public static class Post {
 
+        private Long memberId;
+
         private String name;
         private String description;
     }

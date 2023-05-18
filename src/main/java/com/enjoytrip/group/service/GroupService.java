@@ -1,5 +1,6 @@
 package com.enjoytrip.group.service;
 
+import com.enjoytrip.group.dto.GroupDto;
 import com.enjoytrip.group.entity.Group;
 import com.enjoytrip.group.entity.GroupMember;
 import com.enjoytrip.group.entity.RequestStatus;
@@ -19,12 +20,24 @@ import java.util.List;
 public class GroupService {
 
     private final GroupRepository groupRepository;
-    private final GroupMapper groupMapper;
     private final GroupMemberRepository groupMemberRepository;
+    private final GroupMapper groupMapper;
     private final MemberService memberService;
 
     public List<Group> findAll() {
         return groupRepository.findAll();
+    }
+
+    public void createNewGroup(Group group, Member member) {
+        GroupMember groupMember = GroupMember.createGroupMember(group, member, true);
+
+        save(group);
+        memberService.updateMember(member);
+        groupMemberRepository.save(groupMember);
+    }
+
+    public void updateGroup(Group group, GroupDto.Patch patchRequest) {
+        groupMapper.patchRequestToGroup(patchRequest, group);
     }
 
     public void save(Group group) {
@@ -47,7 +60,6 @@ public class GroupService {
         return getMemberList(groupId, RequestStatus.REQUESTED);
     }
 
-
     public void deleteMemberFromGroup(Long groupId, Long memberId) {
         Group group = findById(groupId);
         Member member = memberService.findOneMember(memberId);
@@ -56,7 +68,7 @@ public class GroupService {
         group.deleteGroupMember(groupMember);
         //TODO: member 쪽에서도 삭제 시켜주기
 
-        groupRepository.save(group);
+        save(group);
         memberService.updateMember(member);
         groupMemberRepository.delete(groupMember);
     }
@@ -66,7 +78,7 @@ public class GroupService {
         Member member = memberService.findOneMember(memberId);
         GroupMember groupMember = GroupMember.createGroupMember(group, member, false);
 
-        groupRepository.save(group);
+        save(group);
         memberService.updateMember(member);
         groupMemberRepository.save(groupMember);
     }
@@ -87,6 +99,7 @@ public class GroupService {
         }
         return list;
     }
+
 
 }
 
