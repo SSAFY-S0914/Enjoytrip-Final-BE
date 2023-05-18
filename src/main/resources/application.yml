@@ -19,8 +19,8 @@ spring:
       client:
         registration:
           google:
-            clientId: 1007347382985-1lmb37b6id48gvas10hqgkrduqmo5v4f.apps.googleusercontent.com
-            clientSecret: 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
+            clientId:
+            clientSecret:
             scope: # Resource Owner 의 이메일 정보, 프로필 정보만 사용
               - email
               - profile
