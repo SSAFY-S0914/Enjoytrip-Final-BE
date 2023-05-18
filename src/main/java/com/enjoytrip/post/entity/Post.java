@@ -1,6 +1,6 @@
 package com.enjoytrip.post.entity;
 
-import com.enjoytrip.group.entity.Group;
+import com.enjoytrip.course.entity.Course;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.utils.BaseEntity;
 import jakarta.persistence.*;
@@ -34,5 +34,5 @@ public class Post extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
-    private Group group;
+    private Course group;
 }
