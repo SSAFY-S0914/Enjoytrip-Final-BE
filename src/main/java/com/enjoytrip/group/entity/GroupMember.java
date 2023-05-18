@@ -22,6 +22,9 @@ public class GroupMember extends BaseEntity {
 
     private Boolean isManager;
 
+    @Enumerated(EnumType.STRING)
+    private RequestStatus status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
