@@ -10,8 +10,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "writer", ignore = true)
+    @Mapping(target = "group", ignore = true)
     Post postRequestToPost(PostDto.Post postRequest);
 
+    @Mapping(target = "writer", ignore = true)
+    @Mapping(target = "group", ignore = true)
     Post patchRequestToPost(PostDto.Patch patchRequest);
 
     @Mapping(source = "post.writer.nickname", target = "nickname")
