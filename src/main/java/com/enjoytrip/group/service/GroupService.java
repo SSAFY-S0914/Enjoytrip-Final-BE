@@ -11,6 +11,7 @@ import com.enjoytrip.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -37,6 +38,15 @@ public class GroupService {
     public void deleteById(Long groupId) {
         groupRepository.deleteById(groupId);
     }
+
+    public List<Member> findAllMembers(Long groupId) {
+        return getMemberList(groupId, RequestStatus.APPROVED);
+    }
+
+    public List<Member> findAllRequests(Long groupId) {
+        return getMemberList(groupId, RequestStatus.REQUESTED);
+    }
+
 
     public void deleteMemberFromGroup(Long groupId, Long memberId) {
         Group group = findById(groupId);
@@ -65,6 +75,17 @@ public class GroupService {
         Group group = findById(groupId);
         GroupMember groupMember = group.getGroupMember(memberId);
         groupMember.setStatus(RequestStatus.APPROVED);
+    }
+
+    private List<Member> getMemberList(Long groupId, RequestStatus requested) {
+        List<Member> list = new ArrayList<>();
+        Group group = findById(groupId);
+        for (GroupMember groupMember : group.getGroupMemberList()) {
+            if (groupMember.getStatus().equals(requested)) {
+                list.add(groupMember.getMember());
+            }
+        }
+        return list;
     }
 
 }
