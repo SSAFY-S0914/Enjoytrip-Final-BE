@@ -16,7 +16,7 @@ public class PostCommentDto {
         private String writer;
         private Long writerId;
         private LocalDateTime createdAt;
-        private LocalDateTime modifiedAd;
+        private LocalDateTime modifiedAt;
     }
 
     @AllArgsConstructor
