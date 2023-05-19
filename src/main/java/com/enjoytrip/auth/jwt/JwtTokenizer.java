@@ -1,4 +1,4 @@
-package com.enjoytrip.auth;
+package com.enjoytrip.auth.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
