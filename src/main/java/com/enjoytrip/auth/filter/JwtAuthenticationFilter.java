@@ -1,12 +1,14 @@
 package com.enjoytrip.auth.filter;
 
-import com.enjoytrip.auth.JwtTokenizer;
+import com.enjoytrip.auth.jwt.JwtTokenizer;
 import com.enjoytrip.auth.dto.LoginDto;
 import com.enjoytrip.member.entity.Member;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,12 +41,15 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     protected void successfulAuthentication(HttpServletRequest request,
             HttpServletResponse response,
             FilterChain chain,
-            Authentication authResult) {
+            Authentication authResult) throws ServletException, IOException {
         Member member = (Member) authResult.getPrincipal(); // Authentication 에 담긴 principal(사용자 정보, Member 객체)호출
         String accessToken = delegateAccessToken(member); // AccessToken 생성
         String refreshToken = delegateRefreshToken(member); // RefreshToken
         response.setHeader("Authorization", "Bearer " + accessToken); // Response Header에 AccessToken 추가 + Bearer 명시
         response.setHeader("Refresh", refreshToken); // Response Header에 RefreshToken 추가
+
+        this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult); // 인증 성공 시 필터에서 successHandler 호출
+        // 인증 실패 시에는 별도의 코드가 없더라도 failureHandler 자동으로 호출됨
     }
 
     //delegateAccessToken() : 인증된 principal(member) 정보로 AccessToken 생성
