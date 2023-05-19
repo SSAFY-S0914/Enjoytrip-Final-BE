@@ -19,8 +19,4 @@ public abstract class Comment extends BaseEntity {
 
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    private Comment parentComment;
-
 }
