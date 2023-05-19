@@ -1,4 +1,4 @@
-package com.enjoytrip.config;
+package com.enjoytrip.auth.filter;
 
 import com.enjoytrip.auth.CustomAuthorityUtils;
 import com.enjoytrip.auth.JwtTokenizer;
