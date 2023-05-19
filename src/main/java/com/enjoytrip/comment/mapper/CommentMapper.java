@@ -22,7 +22,7 @@ public interface CommentMapper {
 
     void postRequestToPostComment(PostCommentDto.Post postRequest, @MappingTarget PostComment postComment);
 
-    void postRequestToPatchComment(PostCommentDto.Patch patchRequest, @MappingTarget PostComment postComment);
+    void patchRequestToPostComment(PostCommentDto.Patch patchRequest, @MappingTarget PostComment postComment);
 
     @Mapping(source = "id", target = "commentId")
     @Mapping(source = "writer.nickname", target = "writer")
