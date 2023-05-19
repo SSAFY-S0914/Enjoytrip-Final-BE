@@ -1,6 +1,6 @@
-package com.enjoytrip.auth.jwt;
+package com.enjoytrip.auth.userDetails;
 
-import com.enjoytrip.auth.CustomAuthorityUtils;
+import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.repository.MemberRepository;
 import com.enjoytrip.utils.businessLogicException.BusinessLogicException;
