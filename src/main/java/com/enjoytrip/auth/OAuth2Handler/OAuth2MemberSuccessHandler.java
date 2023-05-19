@@ -1,5 +1,7 @@
-package com.enjoytrip.auth;
+package com.enjoytrip.auth.OAuth2Handler;
 
+import com.enjoytrip.auth.jwt.JwtTokenizer;
+import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.service.MemberService;
 import jakarta.servlet.ServletException;
@@ -12,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
@@ -20,6 +23,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @RequiredArgsConstructor
+@Slf4j
 public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     // SimpleUrlAuthenticationSuccessHandler : getRedirectStrategy().sendRedirect() 같은 API 사용을 위해
 
@@ -35,13 +39,14 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // 사용자 정보 중 email 추출(username)
         List<String> authorities = authorityUtils.createRoles(email); // 어플리케이션에서 사용할 인증서에 역할을 생성
         
-        saveMember(email); // 백 서버에서 활용하기 위해 최소한의 정보를 DB 에 저장(필요 없을 제외해도 되는지 확인)
+//        saveMember(email); // 백 서버에서 활용하기 위해 최소한의 정보를 DB 에 저장(필요 없을 제외해도 되는지 확인)
         redirect(request, response, email, authorities); //
     }
 
     private void redirect(HttpServletRequest request, HttpServletResponse response, String username
             , List<String> authorities) throws IOException {
-        String accessToken = delegateAccessToken(username, authorities);
+        log.info("Token 생성 시작");
+        String accessToken = delegateAccessToken(username, authorities); // username : email
         String refreshToken = delegateRefreshToken(username);
         String uri = createURI(accessToken, refreshToken).toString();
         getRedirectStrategy().sendRedirect(request, response, uri); // 토큰 받은 상태의 페이지로 redirect 실행
@@ -66,15 +71,19 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return refreshToken;
     }
 
+    //front로 redirect 하는 부분
     private URI createURI(String accessToken, String refreshToken) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
+        // user_id, username 을 붙여야할까?
         queryParams.add("access_token", accessToken);
         queryParams.add("refresh_token", refreshToken);
         return UriComponentsBuilder // 별도 설정이 없을 경우 uri 기본 port 값은 80
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-                .path("/receive-token.html")
+                .port(8080)
+//                .path("/receive-token.html")
+                .path("/hello-oauth2")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
