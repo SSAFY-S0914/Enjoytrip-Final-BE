@@ -42,7 +42,7 @@ public class CommentService {
     }
 
     public List<ProductComment> findAllByProductId(Long productId) {
-        return productCommentRepository.findByProduct_Id(productId);
+        return productCommentRepository.findByProductId(productId);
     }
 
     public ProductComment findProductCommentById(Long commentId) {
@@ -61,4 +61,13 @@ public class CommentService {
     public void deleteProductCommentById(Long commentId) {
         productCommentRepository.deleteById(commentId);
     }
+
+    public List<ProductComment> findAllProductCommentByMemberId(Long memberId) {
+        return productCommentRepository.findByMember_Id(memberId);
+    }
+
+    public List<PostComment> findAllPostCommentByMemberId(Long memberId) {
+        return postCommentRepository.findByMember_Id(memberId);
+    }
 }
+

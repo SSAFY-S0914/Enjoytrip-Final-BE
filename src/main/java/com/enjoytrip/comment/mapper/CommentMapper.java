@@ -20,7 +20,7 @@ public interface CommentMapper {
 
     List<PostCommentDto.Get> postCommentToGetRequest(List<PostComment> postComment);
 
-    void postRequestToPostComment(PostCommentDto.Post postRequest, @MappingTarget PostComment postComment);
+    PostComment postRequestToPostComment(PostCommentDto.Post postRequest);
 
     void patchRequestToPostComment(PostCommentDto.Patch patchRequest, @MappingTarget PostComment postComment);
 
@@ -31,7 +31,7 @@ public interface CommentMapper {
 
     List<ProductCommentDto.Get> productCommentToGetRequest(List<ProductComment> productComment);
 
-    void postRequestToProductComment(ProductCommentDto.Post postRequest, @MappingTarget ProductComment productComment);
+    ProductComment postRequestToProductComment(ProductCommentDto.Post postRequest);
 
     void patchRequestToProductComment(ProductCommentDto.Patch patchRequest, @MappingTarget ProductComment productComment);
 
