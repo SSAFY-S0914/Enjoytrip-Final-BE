@@ -6,6 +6,7 @@ import com.enjoytrip.comment.entity.PostComment;
 import com.enjoytrip.comment.entity.ProductComment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
 
 import java.util.List;
 
@@ -19,9 +20,9 @@ public interface CommentMapper {
 
     List<PostCommentDto.Get> postCommentToGetRequest(List<PostComment> postComment);
 
-    PostComment postRequestToPostComment(PostCommentDto.Post postRequest);
+    void postRequestToPostComment(PostCommentDto.Post postRequest, @MappingTarget PostComment postComment);
 
-    PostComment postRequestToPatchComment(PostCommentDto.Patch patchRequest);
+    void postRequestToPatchComment(PostCommentDto.Patch patchRequest, @MappingTarget PostComment postComment);
 
     @Mapping(source = "id", target = "commentId")
     @Mapping(source = "writer.nickname", target = "writer")
@@ -30,8 +31,8 @@ public interface CommentMapper {
 
     List<ProductCommentDto.Get> productCommentToGetRequest(List<ProductComment> productComment);
 
-    ProductComment postRequestToProductComment(ProductCommentDto.Post postRequest);
+    void postRequestToProductComment(ProductCommentDto.Post postRequest, @MappingTarget ProductComment productComment);
 
-    ProductComment patchRequestToProductComment(ProductCommentDto.Patch patchRequest);
+    void patchRequestToProductComment(ProductCommentDto.Patch patchRequest, @MappingTarget ProductComment productComment);
 
 }
