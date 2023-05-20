@@ -28,7 +28,7 @@ public class MemberService {
 
     public Member createMember(Member member) {
         //TODO 해당 멤버가 DB에 저장되어있는지 확인하는 로직 추가 필요(email-unique를 바탕으로)
-        //Password 암호화(단방향), 백엔드에서 암호화된 상태로 사용하기에 단방향으로 설정 
+        //Password 암호화(단방향), 백엔드에서 암호화된 상태로 사용하기에 단방향으로 설정
         String encryptedPassword = passwordEncoder.encode(member.getPassword());
         member.setPassword(encryptedPassword);
 

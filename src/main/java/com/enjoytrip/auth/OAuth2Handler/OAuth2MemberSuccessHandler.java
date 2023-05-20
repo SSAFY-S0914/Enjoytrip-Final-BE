@@ -29,16 +29,17 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-    private final MemberService memberService;
+//    private final MemberService memberService;
 
+    //onAuthenticationSuccess : // 인증 성공 후, 로그를 기록하거나 사용자 정보를 response로 전송하는 등의 추가 작업을 할 수 있다.
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
             Authentication authentication) throws IOException, ServletException {
-        
+
         var oAuth2User = (OAuth2User)authentication.getPrincipal(); // OAuth2 인증을 통해 사용자 정보 추출
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // 사용자 정보 중 email 추출(username)
         List<String> authorities = authorityUtils.createRoles(email); // 어플리케이션에서 사용할 인증서에 역할을 생성
-        
+
 //        saveMember(email); // 백 서버에서 활용하기 위해 최소한의 정보를 DB 에 저장(필요 없을 제외해도 되는지 확인)
         redirect(request, response, email, authorities); //
     }
@@ -49,9 +50,10 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String accessToken = delegateAccessToken(username, authorities); // username : email
         String refreshToken = delegateRefreshToken(username);
         String uri = createURI(accessToken, refreshToken).toString();
-        getRedirectStrategy().sendRedirect(request, response, uri); // 토큰 받은 상태의 페이지로 redirect 실행
+        getRedirectStrategy().sendRedirect(request, response, uri); // 생성한 토큰을 URI에 담고 다시 front 애플리케이션으로 redirect 실행
     }
 
+    //AccessToken 생성
     private String delegateAccessToken(String username, List<String> authorities) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("username", username);
@@ -63,6 +65,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         return accessToken;
     }
 
+    //RefreshToken 생성
     private String delegateRefreshToken(String username) {
         String subject = username;
         Date expiration = jwtTokenizer.getTokenExpiration(jwtTokenizer.getRefreshTokenExpirationMinutes());
@@ -81,16 +84,16 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
-                .port(8080)
-//                .path("/receive-token.html")
-                .path("/hello-oauth2")
+//                .port(8080)
+                .path("/receive-token.html")
+//                .path("/hello-oauth2")
                 .queryParams(queryParams)
                 .build()
                 .toUri();
     }
 
-    private void saveMember(String email) {
-        Member member = new Member(email);
-        memberService.createMember(member);
-    }
+//    private void saveMember(String email) {
+//        Member member = new Member(email);
+//        memberService.createMember(member);
+//    }
 }

@@ -5,13 +5,16 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import com.enjoytrip.auth.JwtHandler.MemberAccessDeniedHandler;
 import com.enjoytrip.auth.JwtHandler.MemberAuthenticationFailureHandler;
 import com.enjoytrip.auth.JwtHandler.MemberAuthenticationSuccessHandler;
+import com.enjoytrip.auth.OAuth2Handler.OAuth2MemberSuccessHandler;
 import com.enjoytrip.auth.exception.MemberAuthenticationEntryPoint;
 import com.enjoytrip.auth.filter.JwtVerificationFilter;
 import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.auth.jwt.JwtTokenizer;
 import com.enjoytrip.auth.filter.JwtAuthenticationFilter;
+import com.enjoytrip.member.service.MemberService;
 import java.util.Arrays;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,11 +33,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfiguration {
-//    @Value("${spring.security.oauth2.client.registration.google.clientId}")
-//    private String clientId;
-//    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
-//    private String clientSecret;
-
+    @Value("${spring.security.oauth2.client.registration.google.clientId}")
+    private String clientId;
+    @Value("${spring.security.oauth2.client.registration.google.clientSecret}")
+    private String clientSecret;
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
@@ -61,21 +63,22 @@ public class SecurityConfiguration {
                 .apply(new CustomFilterConfigurer()) // 커스텀 필터 추가
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
-                                // SpringBoot 3 : antMatchers => requestMatchers
-                                .requestMatchers(HttpMethod.POST, "/members").permitAll() // 회원 가입 : ALL
-                                .requestMatchers(HttpMethod.PATCH, "/members/**")
-                                .hasRole("USER") // 회원 수정 : User
-                                .requestMatchers(HttpMethod.GET, "/members")
-                                .hasRole("ADMIN") // 회원 정보 목록 : Admin
-                                .requestMatchers(HttpMethod.GET, "/members/**")
-                                .hasAnyRole("USER", "ADMIN") // 회원 조회 : User, Admin
-                                .requestMatchers(HttpMethod.DELETE, "/members/**")
-                                .hasRole("USER") // 회원 탈퇴 : User
-                                .anyRequest().permitAll()
-                );
-//                .oauth2Login(oauth2 -> oauth2
+                        // SpringBoot 3 : antMatchers => requestMatchers
+                        .requestMatchers(HttpMethod.POST, "/members").permitAll() // 회원 가입 : ALL
+                        .requestMatchers(HttpMethod.PATCH, "/members/**")
+                        .hasRole("USER") // 회원 수정 : User
+                        .requestMatchers(HttpMethod.GET, "/members")
+                        .hasRole("ADMIN") // 회원 정보 목록 : Admin
+                        .requestMatchers(HttpMethod.GET, "/members/**")
+                        .hasAnyRole("USER", "ADMIN") // 회원 조회 : User, Admin
+                        .requestMatchers(HttpMethod.DELETE, "/members/**")
+                        .hasRole("USER") // 회원 탈퇴 : User
+                        .anyRequest().permitAll()
+                )
+                .oauth2Login(oauth2 -> oauth2
 //                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
-//                );
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils))
+                );
 
         return http.build();
     }
@@ -117,8 +120,9 @@ public class SecurityConfiguration {
 
             builder
                     .addFilter(jwtAuthenticationFilter)
-                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class); // JwtAuthenticationFilter 뒤에 jwtVerificationFilter 위치
-//            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); //
+                    .addFilterAfter(jwtVerificationFilter, JwtAuthenticationFilter.class) // JwtAuthenticationFilter 뒤에 jwtVerificationFilter 위치
+                    .addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class); //
+//            builder.addFilterAfter(jwtVerificationFilter, OAuth2LoginAuthenticationFilter.class);
         }
     }
 
