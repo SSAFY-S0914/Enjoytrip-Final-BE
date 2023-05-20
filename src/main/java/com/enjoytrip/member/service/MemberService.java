@@ -1,14 +1,18 @@
 package com.enjoytrip.member.service;
 
+import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.repository.MemberRepository;
 import com.enjoytrip.utils.businessLogicException.BusinessLogicException;
 import com.enjoytrip.utils.businessLogicException.ExceptionCode;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,11 +22,23 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository repository;
+    private final ApplicationEventPublisher publisher;
+    private final PasswordEncoder passwordEncoder;
+    private final CustomAuthorityUtils authorityUtils;
 
     public Member createMember(Member member) {
-        //해당 멤버가 DB에 저장되어있는지 확인
+        //TODO 해당 멤버가 DB에 저장되어있는지 확인하는 로직 추가 필요(email-unique를 바탕으로)
+        //Password 암호화(단방향), 백엔드에서 암호화된 상태로 사용하기에 단방향으로 설정
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        member.setPassword(encryptedPassword);
+
+        // DB에 User Role 저장
+        List<String> roles = authorityUtils.createRoles(member.getEmail());
+        member.setRoles(roles);
+
         Member savedMember = repository.save(member);
 
+//        publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
         return savedMember;
     }
 

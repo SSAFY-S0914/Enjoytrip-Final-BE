@@ -1,3 +1,4 @@
+/*
 package com.enjoytrip.post.service;
 
 import com.enjoytrip.post.entity.Post;
@@ -39,3 +40,4 @@ public class PostService {
         return postRepository.findByWriter_Id(memberId);
     }
 }
+*/
