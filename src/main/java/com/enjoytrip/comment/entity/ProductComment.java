@@ -10,4 +10,6 @@ import lombok.Setter;
 public class ProductComment extends Comment {
 
     private Integer star;
+
+    private Long productId;
 }

@@ -1,5 +1,6 @@
 package com.enjoytrip.comment.entity;
 
+import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.utils.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,8 +20,8 @@ public abstract class Comment extends BaseEntity {
 
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    private Comment parentComment;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "writer_id")
+    private Member writer;
 
 }
