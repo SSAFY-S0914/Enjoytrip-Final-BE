@@ -11,14 +11,16 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface GroupMapper {
 
+    @Mapping(source = "id", target = "groupId")
     GroupDto.Get groupToGetRequest(Group group);
 
     List<GroupDto.Get> groupListToGetRequest(List<Group> group);
 
-//    @Mapping(target = "memberId", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "groupMemberList", ignore = true)
     Group postRequestToGroup(GroupDto.Post postRequest);
 
-//    @Mapping(target = "memberId", ignore = true)
-//    @Mapping(target = "groupId", ignore = true)
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "groupMemberList", ignore = true)
     Group patchRequestToGroup(GroupDto.Patch patchRequest, @MappingTarget Group group);
 }
