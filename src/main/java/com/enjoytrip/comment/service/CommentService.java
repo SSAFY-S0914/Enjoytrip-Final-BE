@@ -4,7 +4,8 @@ import com.enjoytrip.comment.dto.PostCommentDto;
 import com.enjoytrip.comment.dto.ProductCommentDto;
 import com.enjoytrip.comment.entity.PostComment;
 import com.enjoytrip.comment.entity.ProductComment;
-import com.enjoytrip.comment.mapper.CommentMapper;
+import com.enjoytrip.comment.mapper.PostCommentMapper;
+import com.enjoytrip.comment.mapper.ProductCommentMapper;
 import com.enjoytrip.comment.repository.PostCommentRepository;
 import com.enjoytrip.comment.repository.ProductCommentRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,8 @@ public class CommentService {
 
     private final PostCommentRepository postCommentRepository;
     private final ProductCommentRepository productCommentRepository;
-    private final CommentMapper commentMapper;
+    private final PostCommentMapper postCommentMapper;
+    private final ProductCommentMapper productCommentMapper;
 
     public List<PostComment> findAllByPostId(Long postId) {
         return postCommentRepository.findByPost_Id(postId);
@@ -33,7 +35,7 @@ public class CommentService {
     }
 
     public void updatePostComment(PostComment postComment, PostCommentDto.Patch patchRequest) {
-        commentMapper.patchRequestToPostComment(patchRequest, postComment);
+        postCommentMapper.patchRequestToPostComment(patchRequest, postComment);
         postCommentRepository.save(postComment);
     }
 
@@ -54,7 +56,7 @@ public class CommentService {
     }
 
     public void updateProductComment(ProductComment productComment, ProductCommentDto.Patch patchRequest) {
-        commentMapper.patchRequestToProductComment(patchRequest, productComment);
+        productCommentMapper.patchRequestToProductComment(patchRequest, productComment);
         productCommentRepository.save(productComment);
     }
 
