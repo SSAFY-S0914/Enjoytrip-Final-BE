@@ -6,7 +6,7 @@ import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-public class ProductCommentDto {
+public class ProductCommentDto implements CommentDto {
 
     @AllArgsConstructor
     @Getter
@@ -17,7 +17,7 @@ public class ProductCommentDto {
         private MemberDto.Get writer;
         private Integer star;
         private LocalDateTime createdAt;
-        private LocalDateTime modifiedAd;
+        private LocalDateTime modifiedAt;
     }
 
     @AllArgsConstructor
@@ -31,7 +31,7 @@ public class ProductCommentDto {
 
     @AllArgsConstructor
     @Getter
-    public static class Patch {
+    public static class Patch extends CommentDto.Patch {
 
         private Long writerId;
         private String content;

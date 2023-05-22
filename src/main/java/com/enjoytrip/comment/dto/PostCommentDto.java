@@ -29,7 +29,7 @@ public class PostCommentDto {
 
     @AllArgsConstructor
     @Getter
-    public static class Patch {
+    public static class Patch extends CommentDto.Patch {
 
         private String content;
         private Long writerId;
