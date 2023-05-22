@@ -13,9 +13,9 @@ public interface CommentService {
 
     Comment findById(Long commentId);
 
-    void createNewComment(Comment comment);
+    Comment createNewComment(Comment comment);
 
-    void updateComment(CommentDto.Patch patchRequest, Comment comment);
+    Comment updateComment(CommentDto.Patch patchRequest, Comment comment);
 
     void deleteById(Long commentId);
 
