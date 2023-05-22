@@ -10,6 +10,8 @@ import com.enjoytrip.like.mapper.LikeMapper;
 import com.enjoytrip.like.repository.LikeRepository;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.service.MemberService;
+import com.enjoytrip.post.entity.Post;
+import com.enjoytrip.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
