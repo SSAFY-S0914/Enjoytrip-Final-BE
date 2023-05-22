@@ -1,6 +1,6 @@
-//package com.enjoytrip.post.entity;
-//
-//public enum PostScope {
-//
-//    PRIVATE, GROUP, PUBLIC
-//}
+package com.enjoytrip.post.entity;
+
+public enum PostScope {
+
+    PRIVATE, GROUP, PUBLIC
+}
