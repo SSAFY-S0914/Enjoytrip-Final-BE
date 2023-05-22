@@ -45,8 +45,7 @@ public class PostCommentController {
     public ResponseEntity<?> updatePostComment(@PathVariable("post-id") Long postId,
                                                @PathVariable("comment-id") Long commentId,
                                                @RequestBody PostCommentDto.Patch patchRequest) {
-        PostComment postComment = (PostComment) commentService.findById(commentId);
-        Comment saved = commentService.updateComment(patchRequest, postComment);
+        Comment saved = commentService.updateComment(patchRequest, commentId);
 
         URI location = createLocation(saved);
         return ResponseEntity.created(location).build();

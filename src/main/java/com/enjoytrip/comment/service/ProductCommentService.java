@@ -36,7 +36,8 @@ public class ProductCommentService implements CommentService {
     }
 
     @Override
-    public Comment updateComment(CommentDto.Patch patchRequest, Comment comment) {
+    public Comment updateComment(CommentDto.Patch patchRequest, Long commentId) {
+        Comment comment = findById(commentId);
         productCommentMapper.patchRequestToProductComment((ProductCommentDto.Patch) patchRequest, (ProductComment) comment);
         return productCommentRepository.save((ProductComment) comment);
     }

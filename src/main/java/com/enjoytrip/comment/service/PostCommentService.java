@@ -26,7 +26,7 @@ public class PostCommentService implements CommentService {
     }
 
     @Override
-    public PostComment findById(Long commentId) {
+    public Comment findById(Long commentId) {
         return postCommentRepository.findById(commentId).get();
     }
 
@@ -36,7 +36,8 @@ public class PostCommentService implements CommentService {
     }
 
     @Override
-    public Comment updateComment(CommentDto.Patch patchRequest, Comment comment) {
+    public Comment updateComment(CommentDto.Patch patchRequest, Long commentId) {
+        Comment comment = findById(commentId);
         postCommentMapper.patchRequestToPostComment((PostCommentDto.Patch) patchRequest, (PostComment) comment);
         return postCommentRepository.save((PostComment) comment);
     }

@@ -47,8 +47,7 @@ public class ProductCommentController {
     public ResponseEntity<?> updateProductComment(@PathVariable("product-id") Long productId,
                                                   @PathVariable("comment-id") Long commentId,
                                                   @RequestBody ProductCommentDto.Patch patchRequest) {
-        ProductComment productComment = (ProductComment) commentService.findAllByTargetId(commentId);
-        Comment saved = commentService.updateComment(patchRequest, productComment);
+        Comment saved = commentService.updateComment(patchRequest, commentId);
 
         URI location = createLocation(saved);
         return ResponseEntity.created(location).build();
