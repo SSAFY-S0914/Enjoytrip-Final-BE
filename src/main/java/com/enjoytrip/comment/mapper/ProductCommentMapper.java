@@ -24,7 +24,7 @@ public abstract class ProductCommentMapper {
     public abstract List<ProductCommentDto.Get> productCommentToGetRequest(List<ProductComment> productComment);
 
     @Mapping(target = "writer", source = "postRequest.writerId", qualifiedByName = "mapMember")
-    public abstract ProductComment postRequestToProductComment(ProductCommentDto.Post postRequest);
+    public abstract ProductComment postRequestToProductComment(ProductCommentDto.Post postRequest, Long productId);
 
     public abstract void patchRequestToProductComment(ProductCommentDto.Patch patchRequest, @MappingTarget ProductComment productComment);
 

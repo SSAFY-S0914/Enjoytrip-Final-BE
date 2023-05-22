@@ -32,14 +32,12 @@ public class PostCommentController {
     }
 
     @PostMapping("/posts/{post-id}")
-    public ResponseEntity<?> createNewPostComment(@PathVariable("post-id") Long postId, @RequestBody PostCommentDto.Post postRequest) {
+    public ResponseEntity<?> createNewPostComment(@PathVariable("post-id") Long postId,
+                                                  @RequestBody PostCommentDto.Post postRequest) {
         PostComment postComment = postCommentMapper.postRequestToPostComment(postRequest, postId);
         Comment saved = commentService.createNewComment(postComment);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(saved.getId())
-                .toUri();
+        URI location = createLocation(saved);
         return ResponseEntity.created(location).build();
     }
 
@@ -50,10 +48,7 @@ public class PostCommentController {
         PostComment postComment = (PostComment) commentService.findById(commentId);
         Comment saved = commentService.updateComment(patchRequest, postComment);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}")
-                .buildAndExpand(saved.getId())
-                .toUri();
+        URI location = createLocation(saved);
         return ResponseEntity.created(location).build();
     }
 
@@ -61,7 +56,7 @@ public class PostCommentController {
     public ResponseEntity<?> deletePostComment(@PathVariable("post-id") Long postId,
                                                @PathVariable("comment-id") Long commentId) {
         commentService.deleteById(commentId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/members/{member-id}/posts")
@@ -69,5 +64,12 @@ public class PostCommentController {
         List<PostComment> postCommentList = (List<PostComment>) commentService.findAllByMemberId(memberId);
         List<PostCommentDto.Get> results = postCommentMapper.postCommentToGetRequest(postCommentList);
         return ResponseEntity.ok(new SingleResponseDto<>(results));
+    }
+
+    private static URI createLocation(Comment saved) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(saved.getId())
+                .toUri();
     }
 }
