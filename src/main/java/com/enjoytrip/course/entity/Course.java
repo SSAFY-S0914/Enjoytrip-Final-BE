@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -30,9 +31,9 @@ public class Course extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private Member writer;
-    
+
     @ElementCollection
-    @CollectionTable(name = "Products", joinColumns = @JoinColumn(name = "product_id"))
+    @CollectionTable(name = "Product_Id", joinColumns = @JoinColumn(name = "product_id"))
     @Column(name = "product_id_list")
-    private List<String> productIdList;
+    private List<String> productIdList = new ArrayList<>();
 }
