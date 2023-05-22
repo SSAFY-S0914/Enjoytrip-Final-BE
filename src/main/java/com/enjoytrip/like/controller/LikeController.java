@@ -50,5 +50,4 @@ public class LikeController {
         return ResponseEntity.ok().build();
     }
 
-
 }
