@@ -58,8 +58,19 @@ public class LikeService {
         likeRepository.save(postLike);
     }
 
-    public void cancelLike(LikeDto.Delete deleteRequest) {
+    public void cancelLikeProduct(LikeDto.Delete deleteRequest) {
         Like like = likeRepository.findById(deleteRequest.getLikeId()).get();
         likeRepository.delete(like);
     }
+
+    public void cancelLikeComment(LikeDto.Delete deleteRequest) {
+        Like like = likeRepository.findById(deleteRequest.getLikeId()).get();
+        likeRepository.delete(like);
+    }
+
+    public void cancelLikePost(LikeDto.Delete deleteRequest) {
+        Like like = likeRepository.findById(deleteRequest.getLikeId()).get();
+        likeRepository.delete(like);
+    }
+
 }
