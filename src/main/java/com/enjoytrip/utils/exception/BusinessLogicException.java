@@ -1,9 +1,10 @@
-package com.enjoytrip.utils.businessLogicException;
+package com.enjoytrip.utils.exception;
 
 
 import lombok.Getter;
 
 public class BusinessLogicException extends RuntimeException {
+    
     @Getter
     private ExceptionCode exceptionCode;
 

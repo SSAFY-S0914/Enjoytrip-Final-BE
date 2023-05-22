@@ -2,6 +2,8 @@ package com.enjoytrip.product.service;
 
 import com.enjoytrip.product.dto.ResponseBodyDto;
 import com.enjoytrip.product.openapi.TourApiClient;
+import com.enjoytrip.utils.exception.BusinessLogicException;
+import com.enjoytrip.utils.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -90,7 +92,7 @@ public class ProductSearchService {
     private static void checkRequiredParams(List<String> requiredParams, Map<String, String> param) {
         for (String requiredParam : requiredParams) {
             if (!param.containsKey(requiredParam)) {
-//                throw new NoRequiredParamException();
+                throw new BusinessLogicException(ExceptionCode.NO_REQUIRED_PARAM);
             }
         }
     }

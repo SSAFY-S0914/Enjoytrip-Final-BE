@@ -3,16 +3,17 @@ package com.enjoytrip.auth.userDetails;
 import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.repository.MemberRepository;
-import com.enjoytrip.utils.businessLogicException.BusinessLogicException;
-import com.enjoytrip.utils.businessLogicException.ExceptionCode;
-import java.util.Collection;
-import java.util.Optional;
+import com.enjoytrip.utils.exception.BusinessLogicException;
+import com.enjoytrip.utils.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -30,7 +31,7 @@ public class MemberDetailsService implements UserDetailsService {
 
     private final class MemberDetails extends Member implements UserDetails {
         //생성자
-        MemberDetails(Member member){
+        MemberDetails(Member member) {
             setId(member.getId());
             setEmail(member.getEmail());
             setPassword(member.getPassword());
