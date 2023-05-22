@@ -1,4 +1,3 @@
-/*
 package com.enjoytrip.post.service;
 
 import com.enjoytrip.post.entity.Post;
@@ -8,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -40,4 +38,3 @@ public class PostService {
         return postRepository.findByWriter_Id(memberId);
     }
 }
-*/
