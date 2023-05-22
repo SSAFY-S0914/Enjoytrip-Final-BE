@@ -1,5 +1,6 @@
 package com.enjoytrip.comment.dto;
 
+import com.enjoytrip.member.dto.MemberDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -13,8 +14,7 @@ public class ProductCommentDto {
 
         private Long commentId;
         private String content;
-        private String writer;
-        private Long writerId;
+        private MemberDto.Get writer;
         private Integer star;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAd;
