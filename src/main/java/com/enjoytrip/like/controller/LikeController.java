@@ -1,10 +1,16 @@
 package com.enjoytrip.like.controller;
 
 import com.enjoytrip.like.dto.LikeDto;
+import com.enjoytrip.like.entity.CommentLike;
+import com.enjoytrip.like.entity.PostLike;
+import com.enjoytrip.like.entity.ProductLike;
 import com.enjoytrip.like.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,40 +20,51 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/products")
-    public ResponseEntity likeProduct(@RequestBody LikeDto.Post postRequest) {
-        likeService.likeProduct(postRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> createProductLike(@RequestBody LikeDto.Post postRequest) {
+        ProductLike productLike = likeService.createProductLike(postRequest);
+
+        URI location = createLocation(productLike.getId());
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping("/products")
-    public ResponseEntity cancelLikeProduct(@RequestBody LikeDto.Delete deleteRequest) {
-        likeService.cancelLikeProduct(deleteRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> cancelProductLike(@RequestBody LikeDto.Delete deleteRequest) {
+        likeService.cancelLike(deleteRequest);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/comments")
-    public ResponseEntity likeComment(@RequestBody LikeDto.Post postRequest) {
-        likeService.likeComment(postRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> createCommentLike(@RequestBody LikeDto.Post postRequest) {
+        CommentLike commentLike = likeService.createCommentLike(postRequest);
+
+        URI location = createLocation(commentLike.getId());
+        return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/products")
-    public ResponseEntity cancelLikeComment(@RequestBody LikeDto.Delete deleteRequest) {
-        likeService.cancelLikeComment(deleteRequest);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/comments")
+    public ResponseEntity<?> cancelCommentLike(@RequestBody LikeDto.Delete deleteRequest) {
+        likeService.cancelLike(deleteRequest);
+        return ResponseEntity.noContent().build();
     }
-
 
     @PostMapping("/posts")
-    public ResponseEntity likePost(@RequestBody LikeDto.Post postRequest) {
-        likeService.likePost(postRequest);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<?> createPostLike(@RequestBody LikeDto.Post postRequest) {
+        PostLike postLike = likeService.createPostLike(postRequest);
+
+        URI location = createLocation(postLike.getId());
+        return ResponseEntity.created(location).build();
     }
 
-    @DeleteMapping("/products")
-    public ResponseEntity cancelLikePost(@RequestBody LikeDto.Delete deleteRequest) {
-        likeService.cancelLikePost(deleteRequest);
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/posts")
+    public ResponseEntity<?> cancelPostLike(@RequestBody LikeDto.Delete deleteRequest) {
+        likeService.cancelLike(deleteRequest);
+        return ResponseEntity.noContent().build();
     }
 
+    private static URI createLocation(Long id) {
+        return ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
+    }
 }

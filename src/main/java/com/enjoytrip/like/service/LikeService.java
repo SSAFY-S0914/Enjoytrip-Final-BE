@@ -32,7 +32,7 @@ public class LikeService {
         return likeRepository.save(productLike);
     }
 
-    public void cancelLikeById(LikeDto.Delete deleteRequest) {
+    public void cancelLike(LikeDto.Delete deleteRequest) {
         likeRepository.deleteById(deleteRequest.getLikeId());
     }
 
