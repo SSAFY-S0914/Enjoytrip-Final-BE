@@ -31,11 +31,9 @@ public class CourseDto {
     @AllArgsConstructor
     @Getter
     public static class Patch {
-        private Long courseId;
         private String title;
         private String content;
         private CourseScope scope;
-        private Long memberId;
         private List<String> productIdList;
     }
 

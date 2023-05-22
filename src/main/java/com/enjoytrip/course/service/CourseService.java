@@ -29,17 +29,19 @@ public class CourseService {
         return courseRepository.findByWriter_Id(memberId);
     }
 
-    public void save(Course course) {
-        courseRepository.save(course);
-    }
-
     public Course findById(Long courseId) {
         return courseRepository.findById(courseId).get();
     }
 
-    public void updateCourse(Long courseId, CourseDto.Patch patchRequest) {
-        Course course = courseRepository.findById(courseId).get();
+    public Course createNewCourse(CourseDto.Post postRequest) {
+        Course course = courseMapper.postRequestToCourse(postRequest);
+        return courseRepository.save(course);
+    }
+
+    public Course updateCourse(CourseDto.Patch patchRequest, Long courseId) {
+        Course course = findById(courseId);
         courseMapper.patchRequestToCourse(patchRequest, course);
+        return courseRepository.save(course);
     }
 
     public void deleteById(Long courseId) {
