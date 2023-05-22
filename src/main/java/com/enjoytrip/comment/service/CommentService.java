@@ -1,75 +1,24 @@
 package com.enjoytrip.comment.service;
 
-import com.enjoytrip.comment.dto.PostCommentDto;
-import com.enjoytrip.comment.dto.ProductCommentDto;
-import com.enjoytrip.comment.entity.PostComment;
-import com.enjoytrip.comment.entity.ProductComment;
-import com.enjoytrip.comment.mapper.PostCommentMapper;
-import com.enjoytrip.comment.mapper.ProductCommentMapper;
-import com.enjoytrip.comment.repository.PostCommentRepository;
-import com.enjoytrip.comment.repository.ProductCommentRepository;
-import lombok.RequiredArgsConstructor;
+import com.enjoytrip.comment.dto.CommentDto;
+import com.enjoytrip.comment.entity.Comment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
-public class CommentService {
+public interface CommentService {
 
-    private final PostCommentRepository postCommentRepository;
-    private final ProductCommentRepository productCommentRepository;
-    private final PostCommentMapper postCommentMapper;
-    private final ProductCommentMapper productCommentMapper;
+    List<? extends Comment> findAllByTargetId(Long targetId);
 
-    public List<PostComment> findAllByPostId(Long postId) {
-        return postCommentRepository.findByPost_Id(postId);
-    }
+    Comment findById(Long commentId);
 
-    public PostComment findPostCommentById(Long commentId) {
-        return postCommentRepository.findById(commentId).get();
-    }
+    void createNewComment(Comment comment);
 
-    public void createPostComment(PostComment postComment) {
-        postCommentRepository.save(postComment);
-    }
+    void updateComment(CommentDto.Patch patchRequest, Comment comment);
 
-    public void updatePostComment(PostComment postComment, PostCommentDto.Patch patchRequest) {
-        postCommentMapper.patchRequestToPostComment(patchRequest, postComment);
-        postCommentRepository.save(postComment);
-    }
+    void deleteById(Long commentId);
 
-    public void deletePostCommentById(Long commentId) {
-        postCommentRepository.deleteById(commentId);
-    }
-
-    public List<ProductComment> findAllByProductId(Long productId) {
-        return productCommentRepository.findByProductId(productId);
-    }
-
-    public ProductComment findProductCommentById(Long commentId) {
-        return productCommentRepository.findById(commentId).get();
-    }
-
-    public void createProductComment(ProductComment productComment) {
-        productCommentRepository.save(productComment);
-    }
-
-    public void updateProductComment(ProductComment productComment, ProductCommentDto.Patch patchRequest) {
-        productCommentMapper.patchRequestToProductComment(patchRequest, productComment);
-        productCommentRepository.save(productComment);
-    }
-
-    public void deleteProductCommentById(Long commentId) {
-        productCommentRepository.deleteById(commentId);
-    }
-
-    public List<ProductComment> findAllProductCommentByMemberId(Long memberId) {
-        return productCommentRepository.findByMember_Id(memberId);
-    }
-
-    public List<PostComment> findAllPostCommentByMemberId(Long memberId) {
-        return postCommentRepository.findByMember_Id(memberId);
-    }
+    List<? extends Comment> findAllByMemberId(Long memberId);
 }
 
