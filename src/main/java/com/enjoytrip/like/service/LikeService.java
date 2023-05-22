@@ -10,6 +10,8 @@ import com.enjoytrip.like.mapper.LikeMapper;
 import com.enjoytrip.like.repository.LikeRepository;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.service.MemberService;
+import com.enjoytrip.post.entity.Post;
+import com.enjoytrip.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -56,8 +58,19 @@ public class LikeService {
         likeRepository.save(postLike);
     }
 
-    public void cancelLike(LikeDto.Delete deleteRequest) {
+    public void cancelLikeProduct(LikeDto.Delete deleteRequest) {
         Like like = likeRepository.findById(deleteRequest.getLikeId()).get();
         likeRepository.delete(like);
     }
+
+    public void cancelLikeComment(LikeDto.Delete deleteRequest) {
+        Like like = likeRepository.findById(deleteRequest.getLikeId()).get();
+        likeRepository.delete(like);
+    }
+
+    public void cancelLikePost(LikeDto.Delete deleteRequest) {
+        Like like = likeRepository.findById(deleteRequest.getLikeId()).get();
+        likeRepository.delete(like);
+    }
+
 }
