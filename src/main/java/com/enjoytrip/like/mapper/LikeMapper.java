@@ -14,25 +14,26 @@ import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
-@RequiredArgsConstructor
 public abstract class LikeMapper {
 
-    private final MemberService memberService;
-    private final CommentService commentService;
-    private final PostService postService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private CommentService commentService;
+    @Autowired
+    private PostService postService;
 
     @Mapping(target = "productId", source = "targetId")
     @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
     public abstract ProductLike postRequestToProductLike(LikeDto.Post postRequest);
 
-    @Mapping(target = "comment", ignore = true)
     @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
     @Mapping(target = "comment", source = "postRequest.targetId", qualifiedByName = "mapComment")
     public abstract CommentLike postRequestToCommentLike(LikeDto.Post postRequest);
 
-    @Mapping(target = "post", ignore = true)
     @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
     @Mapping(target = "post", source = "targetId", qualifiedByName = "mapPost")
     public abstract PostLike postRequestToPostLike(LikeDto.Post postRequest);

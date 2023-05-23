@@ -11,15 +11,17 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@RequiredArgsConstructor
 public abstract class PostCommentMapper {
 
-    private final MemberService memberService;
-    private final PostService postService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private PostService postService;
 
     @Mapping(source = "id", target = "commentId")
     public abstract PostCommentDto.Get postCommentToGetRequest(PostComment postComment);
