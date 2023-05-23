@@ -1,4 +1,6 @@
 package com.enjoytrip.comment.dto;
 
-public class CommentDto {
+public interface CommentDto {
+    public static class Patch {
+    }
 }

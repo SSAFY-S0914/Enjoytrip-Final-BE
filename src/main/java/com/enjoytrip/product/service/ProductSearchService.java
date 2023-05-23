@@ -2,6 +2,8 @@ package com.enjoytrip.product.service;
 
 import com.enjoytrip.product.dto.ResponseBodyDto;
 import com.enjoytrip.product.openapi.TourApiClient;
+import com.enjoytrip.utils.exception.BusinessLogicException;
+import com.enjoytrip.utils.exception.ExceptionCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +26,11 @@ public class ProductSearchService {
         requiredParams.add("radius");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchLocation(queryParams);
     }
+
 
     public ResponseBodyDto searchKeyword(Map<String, String> queryParams) {
 
@@ -34,6 +38,7 @@ public class ProductSearchService {
         requiredParams.add("keyword");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchKeyword(queryParams);
     }
@@ -44,11 +49,15 @@ public class ProductSearchService {
         requiredParams.add("eventStartDate");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchFestival(queryParams);
     }
 
     public ResponseBodyDto searchStay(Map<String, String> queryParams) {
+
+        setDefaultNumOfRows(queryParams);
+        setDefaultNumOfRows(queryParams);
 
         return apiClient.searchStay(queryParams);
     }
@@ -60,6 +69,7 @@ public class ProductSearchService {
         requiredParams.add("contentTypeId");
 
         checkRequiredParams(requiredParams, queryParams);
+        setDefaultNumOfRows(queryParams);
 
         queryParams.put("defaultYN", "Y");
         queryParams.put("firstImageYN", "Y");
@@ -74,14 +84,22 @@ public class ProductSearchService {
 
     public ResponseBodyDto searchArea(Map<String, String> queryParams) {
 
+        setDefaultNumOfRows(queryParams);
+
         return apiClient.searchArea(queryParams);
     }
 
     private static void checkRequiredParams(List<String> requiredParams, Map<String, String> param) {
         for (String requiredParam : requiredParams) {
             if (!param.containsKey(requiredParam)) {
-//                throw new NoRequiredParamException();
+                throw new BusinessLogicException(ExceptionCode.NO_REQUIRED_PARAM);
             }
+        }
+    }
+
+    private static void setDefaultNumOfRows(Map<String, String> queryParams) {
+        if (!queryParams.containsKey("numOfRows")) {
+            queryParams.put("numOfRows", "40");
         }
     }
 }

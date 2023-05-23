@@ -12,6 +12,8 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByScope(PostScope scope);
+
     List<Post> findByGroup_Id(@Param("group_id") Long groupId);
+
     List<Post> findByWriter_Id(@Param("writer_id") Long writer_id);
 }
