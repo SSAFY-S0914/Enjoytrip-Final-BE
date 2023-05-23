@@ -1,4 +1,4 @@
-package com.enjoytrip.course.repository;
-
-public class CourseRepository {
-}
+//package com.enjoytrip.course.repository;
+//
+//public class CourseRepository {
+//}

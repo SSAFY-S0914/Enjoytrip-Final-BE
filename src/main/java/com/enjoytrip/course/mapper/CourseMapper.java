@@ -1,4 +1,4 @@
-package com.enjoytrip.course.mapper;
-
-public class CourseMapper {
-}
+//package com.enjoytrip.course.mapper;
+//
+//public class CourseMapper {
+//}

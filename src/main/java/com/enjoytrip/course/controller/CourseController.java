@@ -1,4 +1,4 @@
-package com.enjoytrip.course.controller;
-
-public class CourseController {
-}
+//package com.enjoytrip.course.controller;
+//
+//public class CourseController {
+//}

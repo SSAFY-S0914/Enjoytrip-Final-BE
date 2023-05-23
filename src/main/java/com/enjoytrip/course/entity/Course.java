@@ -1,4 +1,4 @@
-package com.enjoytrip.course.entity;
-
-public class Course {
-}
+//package com.enjoytrip.course.entity;
+//
+//public class Course {
+//}
