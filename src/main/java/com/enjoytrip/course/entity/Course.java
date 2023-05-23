@@ -25,7 +25,6 @@ public class Course extends BaseEntity {
 
     private String title;
     private String content;
-
     private CourseScope scope;
 
     @ManyToOne(fetch = FetchType.LAZY)
