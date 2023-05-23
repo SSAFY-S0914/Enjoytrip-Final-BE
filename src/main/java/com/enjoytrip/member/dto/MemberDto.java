@@ -60,7 +60,7 @@ public class MemberDto {
 
     @AllArgsConstructor
     @Getter
-    public static class Response {
+    public static class Get {
 
         private Long id;
         private String name;
