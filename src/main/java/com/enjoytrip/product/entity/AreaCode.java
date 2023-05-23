@@ -17,7 +17,6 @@ import java.util.List;
 public class AreaCode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "area_code")
     private Long code;
 
