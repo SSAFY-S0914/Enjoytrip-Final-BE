@@ -30,7 +30,7 @@ public class MemberDetailsService implements UserDetailsService {
 
     private final class MemberDetails extends Member implements UserDetails {
         //생성자
-        MemberDetails(Member member){
+        MemberDetails(Member member) {
             setId(member.getId());
             setEmail(member.getEmail());
             setPassword(member.getPassword());

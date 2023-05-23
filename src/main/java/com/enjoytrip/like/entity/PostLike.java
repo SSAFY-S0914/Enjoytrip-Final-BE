@@ -1,4 +1,4 @@
-package com.enjoytrip.comment.entity;
+package com.enjoytrip.like.entity;
 
 import com.enjoytrip.post.entity.Post;
 import jakarta.persistence.Entity;
@@ -8,10 +8,10 @@ import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.Setter;
 
+@Entity
 @Getter
 @Setter
-@Entity
-public class PostComment extends Comment {
+public class PostLike extends Like {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")

@@ -3,9 +3,8 @@ package com.enjoytrip.member.service;
 import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.repository.MemberRepository;
-import com.enjoytrip.utils.businessLogicException.BusinessLogicException;
-import com.enjoytrip.utils.businessLogicException.ExceptionCode;
-import java.util.List;
+import com.enjoytrip.utils.exception.BusinessLogicException;
+import com.enjoytrip.utils.exception.ExceptionCode;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -15,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional
