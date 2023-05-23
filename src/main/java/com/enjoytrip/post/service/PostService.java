@@ -38,7 +38,7 @@ public class PostService {
     }
 
     public Post updatePost(PostDto.Patch patchRequest) {
-        Post post = findById(patchRequest.getPostId());
+        Post post = findById(patchRequest.getId());
         postMapper.patchRequestToPost(patchRequest, post);
         return postRepository.save(post);
     }
