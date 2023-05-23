@@ -23,18 +23,18 @@ public class MemberDto {
         @Email
         private String email;
 
-        @NotEmpty
-        private String nickname;
+//        @NotEmpty
+//        private String nickname;
 
-        @NotNull(message = "휴대전화 번호를 반드시 입력해야 합니다.")
-        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
-        private String phoneNum;
+//        @NotNull(message = "휴대전화 번호를 반드시 입력해야 합니다.")
+//        @Pattern(regexp = "^010-\\d{3,4}-\\d{4}$")
+//        private String phoneNum;
 
-        @NotEmpty
-        private String birth;
+//        @NotEmpty
+//        private String birth;
 
-        @NotEmpty
-        private String profileImage;
+//        @NotEmpty
+//        private String profileImage;
     }
 
     @AllArgsConstructor
