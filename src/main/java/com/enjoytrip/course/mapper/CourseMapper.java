@@ -9,14 +9,15 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@RequiredArgsConstructor
 public abstract class CourseMapper {
 
-    private final MemberService memberService;
+    @Autowired
+    private MemberService memberService;
 
     public abstract CourseDto.Get courseToGetRequest(Course course);
 
