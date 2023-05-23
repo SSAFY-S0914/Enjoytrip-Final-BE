@@ -1,6 +1,7 @@
 package com.enjoytrip.post.dto;
 
 import com.enjoytrip.group.dto.GroupDto;
+import com.enjoytrip.member.dto.MemberDto;
 import com.enjoytrip.post.entity.PostScope;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -34,7 +35,7 @@ public class PostDto {
     @Getter
     public static class Patch {
 
-        private Long postId;
+        private Long id;
         private Long writerId;
         private Long groupId;
         private String title;
