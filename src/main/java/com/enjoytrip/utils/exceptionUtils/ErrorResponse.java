@@ -1,6 +1,6 @@
 package com.enjoytrip.utils.exceptionUtils;
 
-import com.enjoytrip.utils.exception.ExceptionCode;
+import com.enjoytrip.utils.businessLogicException.ExceptionCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 

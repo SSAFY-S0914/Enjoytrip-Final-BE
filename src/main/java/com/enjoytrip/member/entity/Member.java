@@ -13,6 +13,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Getter
 @Setter
@@ -31,19 +32,19 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String nickname;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String phoneNum;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private LocalDateTime birth;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String profileImage;
 
     @Column(nullable = false)
