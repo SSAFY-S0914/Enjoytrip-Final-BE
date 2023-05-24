@@ -17,8 +17,13 @@ public class LikeService {
     private final LikeMapper likeMapper;
 
 
-    public CommentLike createCommentLike(LikeDto.Post postRequest) {
-        CommentLike commentLike = likeMapper.postRequestToCommentLike(postRequest);
+    public CommentLike createProductCommentLike(LikeDto.Post postRequest) {
+        CommentLike commentLike = likeMapper.postRequestToProductCommentLike(postRequest);
+        return likeRepository.save(commentLike);
+    }
+
+    public CommentLike createPostCommentLike(LikeDto.Post postRequest) {
+        CommentLike commentLike = likeMapper.postRequestToPostCommentLike(postRequest);
         return likeRepository.save(commentLike);
     }
 

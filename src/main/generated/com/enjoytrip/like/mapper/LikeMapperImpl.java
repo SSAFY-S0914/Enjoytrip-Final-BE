@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-05-24T09:36:04+0900",
+    date = "2023-05-24T09:45:00+0900",
     comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17.0.7 (Azul Systems, Inc.)"
 )
 @Component
@@ -30,7 +30,7 @@ public class LikeMapperImpl extends LikeMapper {
     }
 
     @Override
-    public CommentLike postRequestToCommentLike(Post postRequest) {
+    public CommentLike postRequestToProductCommentLike(Post postRequest) {
         if ( postRequest == null ) {
             return null;
         }
@@ -38,7 +38,21 @@ public class LikeMapperImpl extends LikeMapper {
         CommentLike commentLike = new CommentLike();
 
         commentLike.setMember( mapMember( postRequest.getMemberId() ) );
-        commentLike.setComment( mapComment( postRequest.getTargetId() ) );
+        commentLike.setComment( mapProductComment( postRequest.getTargetId() ) );
+
+        return commentLike;
+    }
+
+    @Override
+    public CommentLike postRequestToPostCommentLike(Post postRequest) {
+        if ( postRequest == null ) {
+            return null;
+        }
+
+        CommentLike commentLike = new CommentLike();
+
+        commentLike.setMember( mapMember( postRequest.getMemberId() ) );
+        commentLike.setComment( mapPostComment( postRequest.getTargetId() ) );
 
         return commentLike;
     }
