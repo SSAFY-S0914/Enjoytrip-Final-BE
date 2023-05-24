@@ -4,7 +4,6 @@ import com.enjoytrip.product.dto.ResponseBodyDto;
 import com.enjoytrip.product.service.ProductSearchService;
 import com.enjoytrip.utils.dtoUtils.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,39 +20,39 @@ public class ProductSearchController {
     private final ProductSearchService productSearchService;
 
     @GetMapping("/location")
-    public ResponseEntity searchLocation(@RequestParam Map<String, String> queryParams) {
+    public ResponseEntity<SingleResponseDto<ResponseBodyDto>> searchLocation(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchLocation(queryParams);
-        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+        return ResponseEntity.ok(new SingleResponseDto<>(results));
     }
 
     @GetMapping("/keyword")
-    public ResponseEntity searchKeyword(@RequestParam Map<String, String> queryParams) {
+    public ResponseEntity<SingleResponseDto<ResponseBodyDto>> searchKeyword(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchKeyword(queryParams);
-        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+        return ResponseEntity.ok(new SingleResponseDto<>(results));
     }
 
     @GetMapping("/festival")
-    public ResponseEntity searchFestival(@RequestParam Map<String, String> queryParams) {
+    public ResponseEntity<SingleResponseDto<ResponseBodyDto>> searchFestival(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchFestival(queryParams);
-        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+        return ResponseEntity.ok(new SingleResponseDto<>(results));
     }
 
     @GetMapping("/stay")
-    public ResponseEntity searchStay(@RequestParam Map<String, String> queryParams) {
+    public ResponseEntity<SingleResponseDto<ResponseBodyDto>> searchStay(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchStay(queryParams);
-        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+        return ResponseEntity.ok(new SingleResponseDto<>(results));
     }
 
     @GetMapping("/detail")
-    public ResponseEntity searchDetail(@RequestParam Map<String, String> queryParams) {
+    public ResponseEntity<SingleResponseDto<ResponseBodyDto>> searchDetail(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchDetail(queryParams);
-        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+        return ResponseEntity.ok(new SingleResponseDto<>(results));
     }
 
     @GetMapping("/area")
-    public ResponseEntity searchArea(@RequestParam Map<String, String> queryParams) {
+    public ResponseEntity<SingleResponseDto<ResponseBodyDto>> searchArea(@RequestParam Map<String, String> queryParams) {
         ResponseBodyDto results = productSearchService.searchArea(queryParams);
-        return new ResponseEntity(new SingleResponseDto<>(results), HttpStatus.OK);
+        return ResponseEntity.ok(new SingleResponseDto<>(results));
     }
 
 }
