@@ -9,8 +9,8 @@ import java.util.List;
 @Repository
 public interface ProductCommentRepository extends JpaRepository<ProductComment, Long> {
 
-    List<ProductComment> findByProduct_Id(Long productId);
+    List<ProductComment> findByProductId(Long productId);
 
-    List<ProductComment> findByMember_Id(Long writerId);
+    List<ProductComment> findByWriter_Id(Long writerId);
 
 }
