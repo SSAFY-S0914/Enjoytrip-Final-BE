@@ -9,18 +9,3 @@ spring:
       hibernate:
         show-sql: true
         format_sql: true
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            clientId:
-            clientSecret:
-            scope: # Resource Owner 의 이메일 정보, 프로필 정보만 사용
-              - email
-              - profile
-jwt:
-  key:
-    secret: "password12333333333333333333333333333333333333333333333333333333333333333333"
-  access-token-expiration-minutes: 10
-  refresh-token-expiration-minutes: 60

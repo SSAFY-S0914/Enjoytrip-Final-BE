@@ -4,11 +4,9 @@ import com.enjoytrip.comment.dto.ProductCommentDto;
 import com.enjoytrip.comment.entity.Comment;
 import com.enjoytrip.comment.entity.ProductComment;
 import com.enjoytrip.comment.mapper.ProductCommentMapper;
-import com.enjoytrip.comment.service.CommentService;
-import com.enjoytrip.member.service.MemberService;
+import com.enjoytrip.comment.service.ProductCommentService;
 import com.enjoytrip.utils.dtoUtils.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -21,10 +19,8 @@ import java.util.List;
 @RequestMapping("/comments")
 public class ProductCommentController {
 
-    @Qualifier(value = "ProductCommentService")
-    private final CommentService commentService;
+    private final ProductCommentService commentService;
     private final ProductCommentMapper productCommentMapper;
-    private final MemberService memberService;
 
     @GetMapping("/products/{product-id}")
     public ResponseEntity<SingleResponseDto<List<ProductCommentDto.Get>>> findAllProductComment(@PathVariable("product-id") Long productId) {
