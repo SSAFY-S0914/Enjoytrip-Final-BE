@@ -47,6 +47,6 @@ public class PostCommentService implements CommentService {
 
     @Override
     public List<PostComment> findAllByMemberId(Long memberId) {
-        return postCommentRepository.findByMember_Id(memberId);
+        return postCommentRepository.findByWriter_Id(memberId);
     }
 }

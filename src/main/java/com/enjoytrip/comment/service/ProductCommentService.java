@@ -20,7 +20,7 @@ public class ProductCommentService implements CommentService {
 
     @Override
     public List<ProductComment> findAllByTargetId(Long targetId) {
-        return productCommentRepository.findByProduct_Id(targetId);
+        return productCommentRepository.findByProductId(targetId);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ProductCommentService implements CommentService {
 
     @Override
     public List<ProductComment> findAllByMemberId(Long memberId) {
-        return productCommentRepository.findByMember_Id(memberId);
+        return productCommentRepository.findByWriter_Id(memberId);
     }
 
 }
