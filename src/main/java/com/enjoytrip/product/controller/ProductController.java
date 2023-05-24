@@ -34,7 +34,6 @@ public class ProductController {
     public ResponseEntity<SingleResponseDto<List<AreaCodeDto.Get>>> findAllAreaCodes() {
         List<AreaCode> areaCodeList = productService.findAllAreaCodes();
         List<AreaCodeDto.Get> areaCodeDtoList = areaCodeMapper.areaCodeToGetRequest(areaCodeList);
-        System.out.println(areaCodeDtoList);
         return ResponseEntity.ok(new SingleResponseDto<>(areaCodeDtoList));
     }
 }
