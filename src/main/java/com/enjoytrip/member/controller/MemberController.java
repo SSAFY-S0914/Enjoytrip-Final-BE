@@ -46,9 +46,8 @@ public class MemberController {
     private final MemberMapper mapper;
 
 
-    @PostMapping("/test")
+    @PostMapping
     public ResponseEntity postMember(@Valid @RequestBody MemberDto.Post postRequest) {
-        System.out.println("hi");
         Member memberForService = mapper.memberPostToMember(postRequest);
         Member memberForResponse = service.createMember(memberForService);
         MemberDto.Get response = mapper.memberToMemberResponse(memberForResponse);
