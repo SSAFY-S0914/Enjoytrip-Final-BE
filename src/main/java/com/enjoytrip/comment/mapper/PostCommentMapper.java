@@ -6,22 +6,22 @@ import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.service.MemberService;
 import com.enjoytrip.post.entity.Post;
 import com.enjoytrip.post.service.PostService;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-@RequiredArgsConstructor
 public abstract class PostCommentMapper {
 
-    private final MemberService memberService;
-    private final PostService postService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private PostService postService;
 
-    @Mapping(source = "id", target = "commentId")
     public abstract PostCommentDto.Get postCommentToGetRequest(PostComment postComment);
 
     public abstract List<PostCommentDto.Get> postCommentToGetRequest(List<PostComment> postComment);

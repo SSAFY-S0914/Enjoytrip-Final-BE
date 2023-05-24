@@ -51,7 +51,7 @@ public class MemberController {
         System.out.println("hi");
         Member memberForService = mapper.memberPostToMember(postRequest);
         Member memberForResponse = service.createMember(memberForService);
-        MemberDto.Response response = mapper.memberToMemberResponse(memberForResponse);
+        MemberDto.Get response = mapper.memberToMemberResponse(memberForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.CREATED);
     }
@@ -62,7 +62,7 @@ public class MemberController {
         Member memberForService = mapper.memberPatchToMember(patchRequest);
         memberForService.setId(memberId);
         Member memberForResponse = service.updateMember(memberForService);
-        MemberDto.Response response = mapper.memberToMemberResponse(memberForResponse);
+        MemberDto.Get response = mapper.memberToMemberResponse(memberForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -70,7 +70,7 @@ public class MemberController {
     @GetMapping("/{member-id}")
     public ResponseEntity getOneMember(@PathVariable("member-id") long memberId) {
         Member memberForResponse = service.findOneMember(memberId);
-        MemberDto.Response response = mapper.memberToMemberResponse(memberForResponse);
+        MemberDto.Get response = mapper.memberToMemberResponse(memberForResponse);
 
         return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
     }
@@ -80,7 +80,7 @@ public class MemberController {
             @Positive @RequestParam int size) {
         Page<Member> pageMember = service.findAllMembers(page - 1, size);
         List<Member> memberListForResponse = pageMember.getContent();
-        List<MemberDto.Response> response = mapper.membersToMemberList(memberListForResponse);
+        List<MemberDto.Get> response = mapper.membersToMemberList(memberListForResponse);
 
         return new ResponseEntity(new MultiResponseDto<>(response, pageMember), HttpStatus.OK);
     }

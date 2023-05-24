@@ -1,7 +1,8 @@
 package com.enjoytrip.like.mapper;
 
 import com.enjoytrip.comment.entity.Comment;
-import com.enjoytrip.comment.service.CommentService;
+import com.enjoytrip.comment.service.PostCommentService;
+import com.enjoytrip.comment.service.ProductCommentService;
 import com.enjoytrip.like.dto.LikeDto;
 import com.enjoytrip.like.entity.CommentLike;
 import com.enjoytrip.like.entity.PostLike;
@@ -10,29 +11,35 @@ import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.service.MemberService;
 import com.enjoytrip.post.entity.Post;
 import com.enjoytrip.post.service.PostService;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Mapper(componentModel = "spring")
-@RequiredArgsConstructor
 public abstract class LikeMapper {
 
-    private final MemberService memberService;
-    private final CommentService commentService;
-    private final PostService postService;
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private ProductCommentService productCommentService;
+    @Autowired
+    private PostCommentService postCommentService;
+    @Autowired
+    private PostService postService;
 
     @Mapping(target = "productId", source = "targetId")
     @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
     public abstract ProductLike postRequestToProductLike(LikeDto.Post postRequest);
 
-    @Mapping(target = "comment", ignore = true)
     @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
-    @Mapping(target = "comment", source = "postRequest.targetId", qualifiedByName = "mapComment")
-    public abstract CommentLike postRequestToCommentLike(LikeDto.Post postRequest);
+    @Mapping(target = "comment", source = "postRequest.targetId", qualifiedByName = "mapProductComment")
+    public abstract CommentLike postRequestToProductCommentLike(LikeDto.Post postRequest);
 
-    @Mapping(target = "post", ignore = true)
+    @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
+    @Mapping(target = "comment", source = "postRequest.targetId", qualifiedByName = "mapPostComment")
+    public abstract CommentLike postRequestToPostCommentLike(LikeDto.Post postRequest);
+
     @Mapping(target = "member", source = "postRequest.memberId", qualifiedByName = "mapMember")
     @Mapping(target = "post", source = "targetId", qualifiedByName = "mapPost")
     public abstract PostLike postRequestToPostLike(LikeDto.Post postRequest);
@@ -42,9 +49,14 @@ public abstract class LikeMapper {
         return memberService.findOneMember(memberId);
     }
 
-    @Named("mapComment")
-    protected Comment mapComment(Long targetId) {
-        return commentService.findById(targetId);
+    @Named("mapProductComment")
+    protected Comment mapProductComment(Long targetId) {
+        return productCommentService.findById(targetId);
+    }
+
+    @Named("mapPostComment")
+    protected Comment mapPostComment(Long targetId) {
+        return postCommentService.findById(targetId);
     }
 
     @Named("mapPost")

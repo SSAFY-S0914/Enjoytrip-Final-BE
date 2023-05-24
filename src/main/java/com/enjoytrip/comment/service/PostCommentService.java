@@ -7,14 +7,12 @@ import com.enjoytrip.comment.entity.PostComment;
 import com.enjoytrip.comment.mapper.PostCommentMapper;
 import com.enjoytrip.comment.repository.PostCommentRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Qualifier(value = "PostCommentService")
 public class PostCommentService implements CommentService {
 
     private final PostCommentRepository postCommentRepository;
@@ -49,6 +47,6 @@ public class PostCommentService implements CommentService {
 
     @Override
     public List<PostComment> findAllByMemberId(Long memberId) {
-        return postCommentRepository.findByMember_Id(memberId);
+        return postCommentRepository.findByWriter_Id(memberId);
     }
 }

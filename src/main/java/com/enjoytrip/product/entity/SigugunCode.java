@@ -14,12 +14,12 @@ import lombok.Setter;
 public class SigugunCode {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "sigugun_code")
     private Long code;
 
     private String name;
 
+    @Id
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "area_code")
     private AreaCode areaCode;

@@ -1,39 +1,11 @@
 spring:
   profiles:
-    include: openapi
+    include: secret
     active: local
-  h2:
-    console:
-      enabled: true
-      path: /h2
-  datasource:
-    url: jdbc:h2:mem:test
   jpa:
     hibernate:
       ddl-auto: create
-    show-sql: true
     properties:
       hibernate:
+        show-sql: true
         format_sql: true
-  sql:
-    init:
-      data-locations: classpath*:db/h2/data.sql
-  security:
-    oauth2:
-      client:
-        registration:
-          google:
-            clientId:
-            clientSecret:
-            scope: # Resource Owner 의 이메일 정보, 프로필 정보만 사용
-              - email
-              - profile
-  thymeleaf:
-    prefix: classpath:templates/
-    suffix: .html
-    cache: false
-jwt:
-  key:
-    secret: "password12333333333333333333333333333333333333333333333333333333333333333333"
-  access-token-expiration-minutes: 10
-  refresh-token-expiration-minutes: 60

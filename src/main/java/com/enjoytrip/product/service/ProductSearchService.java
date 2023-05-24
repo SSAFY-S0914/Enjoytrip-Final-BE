@@ -66,7 +66,6 @@ public class ProductSearchService {
 
         requiredParams = new ArrayList<>();
         requiredParams.add("contentId");
-        requiredParams.add("contentTypeId");
 
         checkRequiredParams(requiredParams, queryParams);
         setDefaultNumOfRows(queryParams);

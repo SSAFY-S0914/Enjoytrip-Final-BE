@@ -4,10 +4,9 @@ import com.enjoytrip.comment.dto.PostCommentDto;
 import com.enjoytrip.comment.entity.Comment;
 import com.enjoytrip.comment.entity.PostComment;
 import com.enjoytrip.comment.mapper.PostCommentMapper;
-import com.enjoytrip.comment.service.CommentService;
+import com.enjoytrip.comment.service.PostCommentService;
 import com.enjoytrip.utils.dtoUtils.SingleResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,8 +19,7 @@ import java.util.List;
 @RequestMapping("/comments")
 public class PostCommentController {
 
-    @Qualifier(value = "PostCommentService")
-    private final CommentService commentService;
+    private final PostCommentService commentService;
     private final PostCommentMapper postCommentMapper;
 
     @GetMapping("/posts/{post-id}")

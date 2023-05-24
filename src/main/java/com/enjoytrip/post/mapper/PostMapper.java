@@ -1,26 +1,49 @@
 package com.enjoytrip.post.mapper;
 
+import com.enjoytrip.group.entity.Group;
+import com.enjoytrip.group.service.GroupService;
+import com.enjoytrip.member.entity.Member;
+import com.enjoytrip.member.service.MemberService;
 import com.enjoytrip.post.dto.PostDto;
 import com.enjoytrip.post.entity.Post;
+import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface PostMapper {
+public abstract class PostMapper {
+
+    @Autowired
+    private MemberService memberService;
+    @Autowired
+    private GroupService groupService;
+
+    public abstract PostDto.Get postToGetRequest(Post post);
+
+    public abstract List<PostDto.Get> postListToGetRequest(List<Post> posts);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "writer", ignore = true)
-    @Mapping(target = "group", ignore = true)
-    Post postRequestToPost(PostDto.Post postRequest);
+    @Mapping(target = "writer", source = "postRequest.writerId", qualifiedByName = "mapMember")
+    @Mapping(target = "group", source = "postRequest.groupId", qualifiedByName = "mapGroup")
+    public abstract Post postRequestToPost(PostDto.Post postRequest);
 
-    @Mapping(target = "writer", ignore = true)
-    @Mapping(target = "group", ignore = true)
-    Post patchRequestToPost(PostDto.Patch patchRequest);
+    @Mapping(target = "writer", source = "patchRequest.writerId", qualifiedByName = "mapMember")
+    @Mapping(target = "group", source = "patchRequest.groupId", qualifiedByName = "mapGroup")
+    public abstract void patchRequestToPost(PostDto.Patch patchRequest, @MappingTarget Post post);
 
-    @Mapping(source = "post.writer.nickname", target = "nickname")
-    PostDto.Get postToGetRequest(Post post);
+    @Named("mapMember")
+    protected Member mapMember(Long writerId) {
+        return memberService.findOneMember(writerId);
+    }
 
-    List<PostDto.Get> postListToGetRequest(List<Post> posts);
+    @Named("mapGroup")
+    protected Group mapGroup(Long groupId) {
+        return groupService.findById(groupId);
+    }
+
 }
