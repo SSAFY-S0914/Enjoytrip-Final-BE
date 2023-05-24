@@ -33,9 +33,17 @@ public class LikeController {
         return ResponseEntity.noContent().build();
     }
 
-    @PostMapping("/comments")
-    public ResponseEntity<?> createCommentLike(@RequestBody LikeDto.Post postRequest) {
-        CommentLike commentLike = likeService.createCommentLike(postRequest);
+    @PostMapping("/comments/product")
+    public ResponseEntity<?> createProductCommentLike(@RequestBody LikeDto.Post postRequest) {
+        CommentLike commentLike = likeService.createProductCommentLike(postRequest);
+
+        URI location = createLocation(commentLike.getId());
+        return ResponseEntity.created(location).build();
+    }
+
+    @PostMapping("/comments/post")
+    public ResponseEntity<?> createPostCommentLike(@RequestBody LikeDto.Post postRequest) {
+        CommentLike commentLike = likeService.createPostCommentLike(postRequest);
 
         URI location = createLocation(commentLike.getId());
         return ResponseEntity.created(location).build();
