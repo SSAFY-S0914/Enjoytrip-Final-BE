@@ -4,7 +4,6 @@ import com.enjoytrip.comment.dto.ProductCommentDto;
 import com.enjoytrip.comment.entity.ProductComment;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.service.MemberService;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
@@ -14,11 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
+
 public abstract class ProductCommentMapper {
 
     @Autowired
     private MemberService memberService;
-
+    
     @Mapping(source = "id", target = "commentId")
     public abstract ProductCommentDto.Get productCommentToGetRequest(ProductComment productComment);
 
