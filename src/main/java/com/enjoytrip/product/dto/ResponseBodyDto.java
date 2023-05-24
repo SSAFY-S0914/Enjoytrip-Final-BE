@@ -20,6 +20,6 @@ public class ResponseBodyDto {
 @Setter
 class Items {
 
-    private List<ProductDto> items;
+    private List<ProductDto> item;
 
 }
