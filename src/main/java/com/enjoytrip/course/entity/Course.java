@@ -1,5 +1,6 @@
 package com.enjoytrip.course.entity;
 
+import com.enjoytrip.group.entity.Group;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.utils.BaseEntity;
 import jakarta.persistence.*;
@@ -30,6 +31,10 @@ public class Course extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private Member writer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 
     @ElementCollection
     @CollectionTable(name = "Product_Id", joinColumns = @JoinColumn(name = "product_id"))
