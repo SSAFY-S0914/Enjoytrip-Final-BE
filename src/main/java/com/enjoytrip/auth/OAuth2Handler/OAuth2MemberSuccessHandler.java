@@ -29,7 +29,7 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-//    private final MemberService memberService;
+    private final MemberService memberService;
 
     //onAuthenticationSuccess : // 인증 성공 후, 로그를 기록하거나 사용자 정보를 response로 전송하는 등의 추가 작업을 할 수 있다.
     @Override
@@ -40,16 +40,19 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
         String email = String.valueOf(oAuth2User.getAttributes().get("email")); // 사용자 정보 중 email 추출(username)
         List<String> authorities = authorityUtils.createRoles(email); // 어플리케이션에서 사용할 인증서에 역할을 생성
 
-//        saveMember(email); // 백 서버에서 활용하기 위해 최소한의 정보를 DB 에 저장(필요 없을 제외해도 되는지 확인)
-        redirect(request, response, email, authorities); //
+        Member member = saveMember(email, "oatu2user"); // 백 서버에서 활용하기 위해 최소한의 정보를 DB 에 저장(필요 없을 제외해도 되는지 확인)
+        String id = member.getId().toString();
+//        response.setHeader("Id", authMemberId);
+        redirect(request, response, email, id, authorities); //
     }
 
-    private void redirect(HttpServletRequest request, HttpServletResponse response, String username
+    private void redirect(HttpServletRequest request, HttpServletResponse response, String username, String id
             , List<String> authorities) throws IOException {
         log.info("Token 생성 시작");
         String accessToken = delegateAccessToken(username, authorities); // username : email
         String refreshToken = delegateRefreshToken(username);
-        String uri = createURI(accessToken, refreshToken).toString();
+//        String uri = createURI(accessToken, refreshToken).toString();
+        String uri = createURI(accessToken, refreshToken, id).toString();
         getRedirectStrategy().sendRedirect(request, response, uri); // 생성한 토큰을 URI에 담고 다시 front 애플리케이션으로 redirect 실행
     }
 
@@ -75,17 +78,19 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
     }
 
     //front로 redirect 하는 부분
-    private URI createURI(String accessToken, String refreshToken) {
+    private URI createURI(String accessToken, String refreshToken, String id) {
+//    private URI createURI(String accessToken, String refreshToken) {
         MultiValueMap<String, String> queryParams = new LinkedMultiValueMap<>();
         // user_id, username 을 붙여야할까?
         queryParams.add("access_token", accessToken);
         queryParams.add("refresh_token", refreshToken);
+        queryParams.add("id", id);
         return UriComponentsBuilder // 별도 설정이 없을 경우 uri 기본 port 값은 80
                 .newInstance()
                 .scheme("http")
                 .host("localhost")
                 .port(3000)
-                .path("/")
+//                .path("/")
 //                .path("/receive-token.html")
                 .path("/tokeninfo")
                 .queryParams(queryParams)
@@ -93,8 +98,8 @@ public class OAuth2MemberSuccessHandler extends SimpleUrlAuthenticationSuccessHa
                 .toUri();
     }
 
-//    private void saveMember(String email) {
-//        Member member = new Member(email);
-//        memberService.createMember(member);
-//    }
+    private Member saveMember(String email, String password) {
+        Member member = new Member(email, password);
+        return memberService.createMember(member);
+    }
 }

@@ -1,5 +1,6 @@
 package com.enjoytrip.member.controller;
 
+import com.enjoytrip.auth.dto.LoginDto;
 import com.enjoytrip.member.dto.MemberDto;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.mapper.MemberMapper;
@@ -90,5 +91,20 @@ public class MemberController {
         service.deleteOneMember(memberId);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/findPass/{email}")
+    public ResponseEntity getOneMemberByEmail(@PathVariable("email") String email) {
+        Member memberForResponse = service.findByEmail(email);
+        MemberDto.Get response = mapper.memberToMemberResponse(memberForResponse);
+
+        return new ResponseEntity(new SingleResponseDto<>(response), HttpStatus.OK);
+    }
+
+    @PostMapping("/changePass")
+    public ResponseEntity changePassword(@RequestBody LoginDto loginDto) {
+        service.changPassword(loginDto);
+
+        return new ResponseEntity(HttpStatus.OK);
     }
 }

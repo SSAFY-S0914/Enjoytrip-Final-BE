@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -31,7 +32,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
-@RequiredArgsConstructor
+//@RequiredArgsConstructor
 public class SecurityConfiguration {
     @Value("${spring.security.oauth2.client.registration.google.clientId}")
     private String clientId;
@@ -40,8 +41,14 @@ public class SecurityConfiguration {
 
     private final JwtTokenizer jwtTokenizer;
     private final CustomAuthorityUtils authorityUtils;
-//    private final MemberService memberService;
+    private final MemberService memberService;
 
+    public SecurityConfiguration(JwtTokenizer jwtTokenizer, CustomAuthorityUtils authorityUtils,
+            @Lazy MemberService memberService) {
+        this.jwtTokenizer = jwtTokenizer;
+        this.authorityUtils = authorityUtils;
+        this.memberService = memberService;
+    }
 
     //Oauth 2_google 적용
     @Bean
@@ -71,15 +78,17 @@ public class SecurityConfiguration {
                         .hasRole("USER") // 회원 수정 : User
                         .requestMatchers(HttpMethod.GET, "/members")
                         .hasRole("ADMIN") // 회원 정보 목록 : Admin
+                        .requestMatchers(HttpMethod.GET, "/members/findPass/**")
+                        .permitAll() // 회원 정보 목록 : Admin
                         .requestMatchers(HttpMethod.GET, "/members/**")
                         .hasAnyRole("USER", "ADMIN") // 회원 조회 : User, Admin
                         .requestMatchers(HttpMethod.DELETE, "/members/**")
-                        .hasRole("USER") // 회원 탈퇴 : User
+                        .permitAll() // 회원 탈퇴 : User
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
-//                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
-                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils))
+                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils, memberService))
+//                        .successHandler(new OAuth2MemberSuccessHandler(jwtTokenizer, authorityUtils))
                 );
 
         return http.build();
@@ -115,7 +124,7 @@ public class SecurityConfiguration {
             AuthenticationManager authenticationManager = builder.getSharedObject(AuthenticationManager.class); //AuthenticationManager 객체를 얻음
 
             //Authentication
-            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer); // JwtAuthenticationFilter 에 AuthenticationManager 와 JwtTokenizer 를 DI
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtTokenizer, memberService); // JwtAuthenticationFilter 에 AuthenticationManager 와 JwtTokenizer 를 DI
             jwtAuthenticationFilter.setFilterProcessesUrl("/auth/login"); // default URL : "/login"
             jwtAuthenticationFilter.setAuthenticationSuccessHandler(new MemberAuthenticationSuccessHandler()); // 인증 성공 시 실행할 핸들러 추가
             jwtAuthenticationFilter.setAuthenticationFailureHandler(new MemberAuthenticationFailureHandler()); // 인증 실패 시 실행할 핸들러 추가
