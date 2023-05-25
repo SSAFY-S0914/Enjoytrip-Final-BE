@@ -73,17 +73,17 @@ public class SecurityConfiguration {
                 .and()
                 .authorizeHttpRequests(authorize -> authorize
                         // SpringBoot 3 : antMatchers => requestMatchers
-                        .requestMatchers(HttpMethod.POST, "/members").permitAll() // 회원 가입 : ALL
-                        .requestMatchers(HttpMethod.PATCH, "/members/**")
-                        .hasRole("USER") // 회원 수정 : User
-                        .requestMatchers(HttpMethod.GET, "/members")
-                        .hasRole("ADMIN") // 회원 정보 목록 : Admin
-                        .requestMatchers(HttpMethod.GET, "/members/findPass/**")
-                        .permitAll() // 회원 정보 목록 : Admin
-                        .requestMatchers(HttpMethod.GET, "/members/**")
-                        .hasAnyRole("USER", "ADMIN") // 회원 조회 : User, Admin
-                        .requestMatchers(HttpMethod.DELETE, "/members/**")
-                        .permitAll() // 회원 탈퇴 : User
+//                        .requestMatchers(HttpMethod.POST, "/members").permitAll() // 회원 가입 : ALL
+//                        .requestMatchers(HttpMethod.PATCH, "/members/**")
+//                        .hasRole("USER") // 회원 수정 : User
+//                        .requestMatchers(HttpMethod.GET, "/members")
+//                        .hasRole("ADMIN") // 회원 정보 목록 : Admin
+//                        .requestMatchers(HttpMethod.GET, "/members/findPass/**")
+//                        .permitAll() // 회원 정보 목록 : Admin
+//                        .requestMatchers(HttpMethod.GET, "/members/**")
+//                        .hasAnyRole("USER", "ADMIN") // 회원 조회 : User, Admin
+//                        .requestMatchers(HttpMethod.DELETE, "/members/**")
+//                        .permitAll() // 회원 탈퇴 : User
                         .anyRequest().permitAll()
                 )
                 .oauth2Login(oauth2 -> oauth2
