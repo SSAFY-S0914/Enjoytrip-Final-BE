@@ -26,7 +26,7 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false)
@@ -70,8 +70,9 @@ public class Member extends BaseEntity {
     private List<Like> likes = new ArrayList<>();
 
     //로그인 인증에 사용
-    public Member(String email) {
+    public Member(String email, String password) {
         this.email = email;
+        this.password = password;
     }
 
     public enum MemberStatus {
@@ -86,4 +87,6 @@ public class Member extends BaseEntity {
             this.status = status;
         }
     }
+
+
 }

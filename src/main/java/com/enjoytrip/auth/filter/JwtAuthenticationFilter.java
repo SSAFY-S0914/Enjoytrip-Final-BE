@@ -3,6 +3,7 @@ package com.enjoytrip.auth.filter;
 import com.enjoytrip.auth.jwt.JwtTokenizer;
 import com.enjoytrip.auth.dto.LoginDto;
 import com.enjoytrip.member.entity.Member;
+import com.enjoytrip.member.service.MemberService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -24,6 +26,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     //UsernamePasswordAuthenticationFilter : Username/Password 기반의 인증을 처리
     private final AuthenticationManager authenticationManager;
     private final JwtTokenizer jwtTokenizer;
+    private final MemberService memberService;
 
     // attemptAuthentication() : 내부에서 인증을 하기 위한 메소드
     @SneakyThrows
@@ -47,6 +50,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshToken = delegateRefreshToken(member); // RefreshToken
         response.setHeader("Authorization", "Bearer " + accessToken); // Response Header에 AccessToken 추가 + Bearer 명시
         response.setHeader("Refresh", refreshToken); // Response Header에 RefreshToken 추가
+        String authMemberId = memberService.findByEmail(member.getEmail()).getId().toString();
+        response.setHeader("Id", authMemberId);
 
         this.getSuccessHandler().onAuthenticationSuccess(request, response, authResult); // 인증 성공 시 필터에서 successHandler 호출
         // 인증 실패 시에는 별도의 코드가 없더라도 failureHandler 자동으로 호출됨

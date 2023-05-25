@@ -1,8 +1,11 @@
 package com.enjoytrip.auth.JwtHandler;
 
+import com.enjoytrip.member.entity.Member;
+import com.enjoytrip.member.service.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -10,6 +13,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 //MemberAuthenticationSuccessHandler : AuthenticationSuccessHandler 를 구현하여 커스텀
 //AuthenticationSuccessHandler : 인증 성공시 HttpServletResponse 로 출력 스트림을 생성하여 response 를 전달 할 수 있음
 @Slf4j
+@RequiredArgsConstructor
 public class MemberAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     @Override

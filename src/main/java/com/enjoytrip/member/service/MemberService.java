@@ -1,5 +1,6 @@
 package com.enjoytrip.member.service;
 
+import com.enjoytrip.auth.dto.LoginDto;
 import com.enjoytrip.auth.utils.CustomAuthorityUtils;
 import com.enjoytrip.member.entity.Member;
 import com.enjoytrip.member.repository.MemberRepository;
@@ -7,6 +8,7 @@ import com.enjoytrip.utils.exception.BusinessLogicException;
 import com.enjoytrip.utils.exception.ExceptionCode;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +22,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
+@Slf4j
 public class MemberService {
 
     private final MemberRepository repository;
@@ -95,4 +98,24 @@ public class MemberService {
         return findMember;
     }
 
+    public Member findByEmail (String email){
+        Optional<Member> optionalMember = repository.findByEmail(email);
+
+        Member findMember = optionalMember.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+
+        return findMember;
+    }
+
+    public void changPassword (LoginDto member){
+        Optional<Member> optionalMember = repository.findByEmail(member.getEmail());
+        Member findMember = optionalMember.orElseThrow(
+                () -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        log.info("#bef: " + findMember.getEmail());
+        log.info("#bef: " + findMember.getPassword());
+        String encryptedPassword = passwordEncoder.encode(member.getPassword());
+        findMember.setPassword(encryptedPassword);
+        log.info("#bef: " + findMember.getEmail());
+        log.info("#bef: " + findMember.getPassword());
+    }
 }
