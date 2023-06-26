@@ -1,9 +1,10 @@
 ---
 name: Refactor request
-about: 기능추가
+about: 기능 수정
 title: "[Refactor] <기능 이름?>"
 labels: refactor
 assignees: ''
+
 ---
 
 ## 개발사항
